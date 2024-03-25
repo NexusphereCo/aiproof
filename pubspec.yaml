@@ -3,7 +3,6 @@ description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -50,12 +49,15 @@ dependencies:
   flutter_bloc: ^8.0.0
 
 flutter_native_splash:
-  color: "#3336AB"
-  image:
+  image: assets/imgs/logo.png
+  background_image: assets/imgs/splash_background.png
 
   android: true
   ios: true
   fullscreen: true
+
+  android_12:
+    image: assets/imgs/logo.png
 
 dev_dependencies:
   flutter_test:
@@ -88,16 +90,19 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+  assets:
+    - assets/imgs/logo.png
+    - assets/imgs/splash_background.png
 
   fonts:
     - family: Outfit
       fonts:
-        - asset: lib/assets/fonts/outfit/Outfit-Black.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-Bold.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-ExtraBold.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-ExtraLight.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-Light.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-Medium.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-Regular.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-SemiBold.ttf
-        - asset: lib/assets/fonts/outfit/Outfit-Thin.ttf
+        - asset: assets/fonts/outfit/Outfit-Black.ttf
+        - asset: assets/fonts/outfit/Outfit-Bold.ttf
+        - asset: assets/fonts/outfit/Outfit-ExtraBold.ttf
+        - asset: assets/fonts/outfit/Outfit-ExtraLight.ttf
+        - asset: assets/fonts/outfit/Outfit-Light.ttf
+        - asset: assets/fonts/outfit/Outfit-Medium.ttf
+        - asset: assets/fonts/outfit/Outfit-Regular.ttf
+        - asset: assets/fonts/outfit/Outfit-SemiBold.ttf
+        - asset: assets/fonts/outfit/Outfit-Thin.ttf
