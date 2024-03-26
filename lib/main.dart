@@ -1,5 +1,6 @@
-import 'package:ai_proof/modules/app.dart';
 import 'package:flutter/material.dart';
+
+import 'modules/app.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,4 +1,4 @@
-import 'package:ai_proof/modules/auth/screens/homepage.dart';
+import 'package:ai_proof/modules/auth/screens/TestPage/index.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -9,12 +9,12 @@ class Routes {
 
   // Map that associates route names with their corresponding screen widgets.
   static final Map<String, Widget Function()> routesMap = {
-    homepage: () => const HomePage(),
+    homepage: () => TestPage(),
   };
 
   // Map that associates route names with their corresponding builder functions.
   static final routes = <String, WidgetBuilder>{
-    homepage: (BuildContext context) => const HomePage(),
+    homepage: (BuildContext context) => TestPage(),
   };
 }
 
