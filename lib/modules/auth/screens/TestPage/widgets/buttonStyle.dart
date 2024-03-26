@@ -1,6 +1,6 @@
 import 'package:ai_proof/constants/colors.dart';
 import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography_test.dart';
+import 'package:ai_proof/constants/typography.dart';
 import 'package:ai_proof/widgets/components/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
@@ -18,6 +18,15 @@ class MyButtonStyle extends StatelessWidget {
           children: [
             const h1(text: "Button Theme"),
             const SizedBox(height: Spacing.sm),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const APBackButton(),
+                IconButton(onPressed: () {}, icon: const Icon(Remix.download_line)),
+                APNavButton(onPressed: () {}, icon: Remix.more_line, text: "More", isActive: true),
+              ],
+            ),
+            const SizedBox(height: Spacing.sm),
             APButton(
               text: "Outline",
               theme: APButtonTheme.darkOutlined,
@@ -32,21 +41,16 @@ class MyButtonStyle extends StatelessWidget {
               onPressed: () {},
             ),
             const SizedBox(height: Spacing.sm),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                APButton(
-                  text: "Icon",
-                  theme: APButtonTheme.dark,
-                  icon: Icon(
-                    Remix.download_2_line,
-                    color: APColor.light,
-                    size: APFontSize.h3,
-                  ),
-                  onPressed: () {},
-                ),
-                IconButton(onPressed: () {}, icon: const Icon(Remix.download_2_line)),
-              ],
+            APButton(
+              text: "Icon",
+              theme: APButtonTheme.dark,
+              size: APButtonSize.lg,
+              icon: Icon(
+                Remix.download_2_line,
+                color: APColor.light,
+                size: APFontSize.h3,
+              ),
+              onPressed: () {},
             ),
           ],
         ),

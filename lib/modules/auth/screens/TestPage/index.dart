@@ -1,5 +1,6 @@
 import 'package:ai_proof/constants/colors.dart';
 import 'package:ai_proof/constants/sizes.dart';
+import 'package:ai_proof/constants/typography.dart';
 import 'package:ai_proof/modules/auth/screens/TestPage/widgets/colorStyle.dart';
 import 'package:ai_proof/modules/auth/screens/TestPage/widgets/iconStyle.dart';
 import 'package:ai_proof/modules/auth/screens/TestPage/widgets/typographyStyle.dart';
@@ -11,7 +12,7 @@ class TestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test Page'),
+        title: const h1(text: "Test Page"),
         backgroundColor: APColor.primary[200],
       ),
       body: Expanded(

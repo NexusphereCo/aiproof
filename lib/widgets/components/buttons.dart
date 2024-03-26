@@ -33,13 +33,44 @@ class APBackButton extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          color: APColor.primary,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () {},
           icon: const Icon(Remix.arrow_left_line),
         ),
       ],
+    );
+  }
+}
+
+class APNavButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final String text;
+  final bool isActive;
+
+  const APNavButton({
+    Key? key,
+    required this.onPressed,
+    required this.icon,
+    required this.text,
+    this.isActive = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 24,
+            color: APColor.dark.withOpacity(isActive ? 1 : 0.5),
+          ),
+          const SizedBox(height: 4),
+          label(text: text, color: APColor.dark.withOpacity(isActive ? 1 : 0.5)),
+        ],
+      ),
     );
   }
 }
@@ -122,15 +153,15 @@ class APButton extends StatelessWidget {
           spacing: textIconSpacing,
           children: [
             switch (size ?? APButtonSize.md) {
-              APButtonSize.sm => APTypography.small(
+              APButtonSize.sm => small(
                   text: text,
                   color: APColor.light,
                 ),
-              APButtonSize.md => APTypography.text(
+              APButtonSize.md => normal(
                   text: text,
                   color: APColor.light,
                 ),
-              APButtonSize.lg => APTypography.h3(
+              APButtonSize.lg => h3(
                   text: text,
                   color: APColor.light,
                   fontWeight: APFontWeight.regular,
@@ -160,15 +191,15 @@ class APButton extends StatelessWidget {
           spacing: textIconSpacing,
           children: [
             switch (size ?? APButtonSize.md) {
-              APButtonSize.sm => APTypography.small(
+              APButtonSize.sm => small(
                   text: text,
                   color: _setColor(theme),
                 ),
-              APButtonSize.md => APTypography.text(
+              APButtonSize.md => normal(
                   text: text,
                   color: _setColor(theme),
                 ),
-              APButtonSize.lg => APTypography.h3(
+              APButtonSize.lg => h3(
                   text: text,
                   color: _setColor(theme),
                   fontWeight: APFontWeight.regular,
@@ -191,7 +222,7 @@ class APButton extends StatelessWidget {
       case APButtonTheme.light || APButtonTheme.lightOutlined:
         return APColor.light;
       case APButtonTheme.danger || APButtonTheme.dangerOutlined:
-        return APColor.red;
+        return APColor.danger;
       default:
         return APColor.dark;
     }

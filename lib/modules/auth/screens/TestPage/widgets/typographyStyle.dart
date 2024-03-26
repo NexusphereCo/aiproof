@@ -1,5 +1,5 @@
 import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography_test.dart';
+import 'package:ai_proof/constants/typography.dart';
 import 'package:flutter/material.dart';
 
 class TypographyStyle extends StatelessWidget {
@@ -17,7 +17,7 @@ class TypographyStyle extends StatelessWidget {
         h2(text: "Heading 2"),
         h3(text: "Heading 3"),
         h4(text: "Heading 4"),
-        text(text: "Normal text"),
+        normal(text: "Normal text"),
         label(text: "Label text"),
         small(text: "Small text"),
       ],

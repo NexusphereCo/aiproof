@@ -1,5 +1,5 @@
 import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography_test.dart';
+import 'package:ai_proof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -31,8 +31,7 @@ class IconStyle extends StatelessWidget {
           children: [
             Icon(Remix.arrow_left_line),
             Icon(Remix.loop_right_line),
-            Icon(Remix.file_search_line),
-            Icon(Remix.download_2_line),
+            Icon(Remix.download_line),
             Icon(Remix.close_line),
             Icon(Remix.arrow_down_s_line),
             Icon(Remix.verified_badge_line),

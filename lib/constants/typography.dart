@@ -1,9 +1,7 @@
 import 'package:ai_proof/constants/colors.dart';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-/// defines the custom font weight
 class APFontWeight {
   APFontWeight._();
 
@@ -27,23 +25,34 @@ class APFontSize {
   static const double small = 10.0;
 }
 
-class APTypography {
-  APTypography._();
-
+class APTypography extends StatelessWidget {
   static const String fontFamily = 'Outfit';
 
-  static Widget _textStyle(
-    String str,
-    double fontSize,
-    Color? color,
-    bool muted,
-    FontWeight fontWeight,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  ) {
+  final String text;
+  final double fontSize;
+  final Color? color;
+  final bool muted;
+  final FontWeight fontWeight;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final bool? cutOverflow;
+
+  const APTypography({
+    super.key,
+    required this.text,
+    required this.fontSize,
+    this.color,
+    this.muted = false,
+    this.fontWeight = FontWeight.normal,
+    this.textAlign,
+    this.maxLines,
+    this.cutOverflow,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return AutoSizeText(
-      str,
+      text,
       style: TextStyle(
         fontSize: fontSize,
         fontWeight: fontWeight,
@@ -54,21 +63,158 @@ class APTypography {
       overflow: (cutOverflow ?? false) ? TextOverflow.ellipsis : null,
     );
   }
+}
 
-  /// typography headings and texts with parameters.
-  /// @param [Text] text - required; the text message
-  ///        [Color] color - nullable;
-  ///        [FontWeight] fontWeight - nullable;
-  ///        [bool] muted - nullable;
-  ///        [TextAlign] textAlign - nullable;
-  ///        [int] maxLines - nullable;
-  ///        [bool] cutOverflow - nullable;
-  /// @returns [AutoSizeText]
-  static Widget h1({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h1, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
-  static Widget h2({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h2, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
-  static Widget h3({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h3, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
-  static Widget h4({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h4, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
-  static Widget text({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.normal, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
-  static Widget label({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.label, color, muted, fontWeight ?? APFontWeight.semiBold, textAlign, maxLines, cutOverflow);
-  static Widget small({required String text, Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.small, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
+class h1 extends APTypography {
+  const h1({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.bold,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.h1,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class h2 extends APTypography {
+  const h2({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.bold,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.h2,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class h3 extends APTypography {
+  const h3({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.bold,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.h3,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class h4 extends APTypography {
+  const h4({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.bold,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.h4,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class normal extends APTypography {
+  const normal({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.normal,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.normal,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class label extends APTypography {
+  const label({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.w600,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.label,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
+}
+
+class small extends APTypography {
+  const small({
+    super.key,
+    required String text,
+    Color? color,
+    bool muted = false,
+    FontWeight fontWeight = FontWeight.normal,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  }) : super(
+          text: text,
+          fontSize: APFontSize.small,
+          color: color,
+          muted: muted,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          cutOverflow: cutOverflow,
+        );
 }

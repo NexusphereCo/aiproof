@@ -61,7 +61,7 @@ class APColor {
     },
   );
 
-  static MaterialColor red = const MaterialColor(
+  static MaterialColor danger = const MaterialColor(
     // default = shade[400]
     0xFFF64040,
     <int, Color>{

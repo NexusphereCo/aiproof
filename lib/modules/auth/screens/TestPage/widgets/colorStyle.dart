@@ -1,6 +1,6 @@
 import 'package:ai_proof/constants/colors.dart';
 import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography_test.dart';
+import 'package:ai_proof/constants/typography.dart';
 import 'package:flutter/material.dart';
 
 class ColorStyle extends StatelessWidget {
@@ -48,10 +48,10 @@ class ColorStyle extends StatelessWidget {
         Container(
           width: 100.0,
           height: 50.0,
-          color: APColor.red,
+          color: APColor.danger,
           child: Center(
             child: label(
-              text: "Secondary",
+              text: "Danger",
               color: APColor.light,
             ),
           ),

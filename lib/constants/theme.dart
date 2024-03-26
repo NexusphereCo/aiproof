@@ -37,6 +37,7 @@ class APTheme {
     return ThemeData(
       primarySwatch: APColor.primary,
       textTheme: buildTextTheme(),
+      iconTheme: IconThemeData(color: APColor.dark),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: APColor.primary,
         foregroundColor: APColor.light,
