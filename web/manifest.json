@@ -1,6 +1,6 @@
 {
-    "name": "ai_proof",
-    "short_name": "ai_proof",
+    "name": "aiproof",
+    "short_name": "aiproof",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
