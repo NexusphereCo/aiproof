@@ -1,6 +1,6 @@
-import 'package:ai_proof/constants/colors.dart';
-import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography.dart';
+import 'package:aiproof/constants/colors.dart';
+import 'package:aiproof/constants/sizes.dart';
+import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -68,7 +68,7 @@ class APNavButton extends StatelessWidget {
             color: APColor.dark.withOpacity(isActive ? 1 : 0.5),
           ),
           const SizedBox(height: 4),
-          label(text: text, color: APColor.dark.withOpacity(isActive ? 1 : 0.5)),
+          APTypography.label(text, color: APColor.dark.withOpacity(isActive ? 1 : 0.5)),
         ],
       ),
     );
@@ -153,16 +153,16 @@ class APButton extends StatelessWidget {
           spacing: textIconSpacing,
           children: [
             switch (size ?? APButtonSize.md) {
-              APButtonSize.sm => small(
-                  text: text,
+              APButtonSize.sm => APTypography.small(
+                  text,
                   color: APColor.light,
                 ),
-              APButtonSize.md => normal(
-                  text: text,
+              APButtonSize.md => APTypography.base(
+                  text,
                   color: APColor.light,
                 ),
-              APButtonSize.lg => h3(
-                  text: text,
+              APButtonSize.lg => APTypography.h3(
+                  text,
                   color: APColor.light,
                   fontWeight: APFontWeight.regular,
                 ),
@@ -191,16 +191,16 @@ class APButton extends StatelessWidget {
           spacing: textIconSpacing,
           children: [
             switch (size ?? APButtonSize.md) {
-              APButtonSize.sm => small(
-                  text: text,
+              APButtonSize.sm => APTypography.small(
+                  text,
                   color: _setColor(theme),
                 ),
-              APButtonSize.md => normal(
-                  text: text,
+              APButtonSize.md => APTypography.base(
+                  text,
                   color: _setColor(theme),
                 ),
-              APButtonSize.lg => h3(
-                  text: text,
+              APButtonSize.lg => APTypography.h3(
+                  text,
                   color: _setColor(theme),
                   fontWeight: APFontWeight.regular,
                 ),

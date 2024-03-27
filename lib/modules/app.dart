@@ -1,6 +1,5 @@
-import 'package:ai_proof/constants/theme.dart';
-import 'package:ai_proof/modules/auth/index.dart';
-import 'package:ai_proof/utils/routes.dart';
+import 'package:aiproof/constants/theme.dart';
+import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,10 +16,10 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp(
-        title: 'AI.Proof',
+        title: 'aiproof',
         theme: APTheme.data(),
         routes: Routes.routes,
-        home: TestPage(),
+        initialRoute: Routes.home,
         debugShowCheckedModeBanner: false,
       ),
     );
