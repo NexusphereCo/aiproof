@@ -1,7 +1,9 @@
-import 'package:ai_proof/constants/colors.dart';
+import 'package:aiproof/constants/colors.dart';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+/// defines the custom font weight
 class APFontWeight {
   APFontWeight._();
 
@@ -25,34 +27,37 @@ class APFontSize {
   static const double small = 10.0;
 }
 
-class APTypography extends StatelessWidget {
+/// A class that provides typography constants and styles for the application.
+class APTypography {
+  APTypography._();
+
+  /// The default font family used for text in the application.
   static const String fontFamily = 'Outfit';
 
-  final String text;
-  final double fontSize;
-  final Color? color;
-  final bool muted;
-  final FontWeight fontWeight;
-  final TextAlign? textAlign;
-  final int? maxLines;
-  final bool? cutOverflow;
-
-  const APTypography({
-    super.key,
-    required this.text,
-    required this.fontSize,
-    this.color,
-    this.muted = false,
-    this.fontWeight = FontWeight.normal,
-    this.textAlign,
-    this.maxLines,
-    this.cutOverflow,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  /// Creates a [Widget] with the specified text style.
+  ///
+  /// The [str] parameter is the text to display.
+  /// The [fontSize] parameter is the size of the font.
+  /// The [color] parameter is the color of the text.
+  /// The [muted] parameter indicates whether the text should be muted.
+  /// The [fontWeight] parameter is the weight of the font.
+  /// The [textAlign] parameter is the alignment of the text.
+  /// The [maxLines] parameter is the maximum number of lines for the text.
+  /// The [cutOverflow] parameter indicates whether to cut off the text if it overflows.
+  ///
+  /// Returns a [Widget] that displays the specified text with the given style.
+  static Widget _textStyle(
+    String str,
+    double fontSize,
+    Color? color,
+    bool muted,
+    FontWeight fontWeight,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? cutOverflow,
+  ) {
     return AutoSizeText(
-      text,
+      str,
       style: TextStyle(
         fontSize: fontSize,
         fontWeight: fontWeight,
@@ -63,158 +68,74 @@ class APTypography extends StatelessWidget {
       overflow: (cutOverflow ?? false) ? TextOverflow.ellipsis : null,
     );
   }
-}
 
-class h1 extends APTypography {
-  const h1({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.bold,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.h1,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a heading 1 text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget h1(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h1, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
-class h2 extends APTypography {
-  const h2({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.bold,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.h2,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a heading 2 text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget h2(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h2, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
-class h3 extends APTypography {
-  const h3({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.bold,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.h3,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a heading 3 text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget h3(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h3, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
-class h4 extends APTypography {
-  const h4({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.bold,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.h4,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a heading 4 text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget h4(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h4, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
-class normal extends APTypography {
-  const normal({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.normal,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.normal,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a normal text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget base(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.normal, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
 
-class label extends APTypography {
-  const label({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.w600,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.label,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
-}
+  /// Creates a label text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget label(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.label, color, muted, fontWeight ?? APFontWeight.semiBold, textAlign, maxLines, cutOverflow);
 
-class small extends APTypography {
-  const small({
-    super.key,
-    required String text,
-    Color? color,
-    bool muted = false,
-    FontWeight fontWeight = FontWeight.normal,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) : super(
-          text: text,
-          fontSize: APFontSize.small,
-          color: color,
-          muted: muted,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          cutOverflow: cutOverflow,
-        );
+  /// Creates a small text widget with the specified [text] and optional styling properties.
+  ///
+  /// The [color] parameter sets the color of the text.
+  /// The [fontWeight] parameter sets the weight of the text.
+  /// The [muted] parameter determines if the text should be displayed as muted.
+  /// The [textAlign] parameter sets the alignment of the text.
+  /// The [maxLines] parameter limits the number of lines the text can occupy.
+  /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
+  static Widget small(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.small, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
 }

@@ -1,6 +1,6 @@
-import 'package:ai_proof/constants/colors.dart';
-import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography.dart';
+import 'package:aiproof/constants/colors.dart';
+import 'package:aiproof/constants/sizes.dart';
+import 'package:aiproof/constants/typography.dart';
 
 import 'package:flutter/material.dart';
 
