@@ -1,5 +1,5 @@
 import 'package:aiproof/database/database_service.dart';
-import 'package:aiproof/modules/app.test.dart';
+import 'package:aiproof/modules/app.dart';
 import 'package:aiproof/utils/global.dart';
 
 import 'package:flutter/material.dart';
