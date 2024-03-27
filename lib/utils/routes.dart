@@ -1,20 +1,24 @@
-import 'package:ai_proof/modules/auth/screens/TestPage/index.dart';
+import 'package:aiproof/modules/home/index.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
   Routes._();
 
-  // static variable for homepage route
-  static const String homepage = '/homepage';
+  // Splash screen
+  static const String splash = '/splash';
+  // --------------------------------------------------------------------------------------
+  // Homepage related
+  // --------------------------------------------------------------------------------------
+  static const home = '/home';
 
   // Map that associates route names with their corresponding screen widgets.
   static final Map<String, Widget Function()> routesMap = {
-    homepage: () => TestPage(),
+    home: () => const HomeScreen(),
   };
 
   // Map that associates route names with their corresponding builder functions.
   static final routes = <String, WidgetBuilder>{
-    homepage: (BuildContext context) => TestPage(),
+    home: (BuildContext context) => const HomeScreen(),
   };
 }
 

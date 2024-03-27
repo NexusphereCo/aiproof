@@ -1,7 +1,17 @@
+import 'package:aiproof/database/database_service.dart';
+import 'package:aiproof/modules/app.test.dart';
+import 'package:aiproof/utils/global.dart';
+
 import 'package:flutter/material.dart';
 
-import 'modules/app.dart';
+Future<void> main() async {
+  // initialize system settings
+  WidgetsFlutterBinding.ensureInitialized();
+  setSystemUIOverlayStyle();
+  await setPreferredOrientations();
 
-void main() {
+  DatabaseService databaseService = DatabaseService();
+
+  // run the application
   runApp(const MyApp());
 }
