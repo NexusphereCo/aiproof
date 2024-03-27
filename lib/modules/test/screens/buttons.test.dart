@@ -1,12 +1,12 @@
-import 'package:ai_proof/constants/colors.dart';
-import 'package:ai_proof/constants/sizes.dart';
-import 'package:ai_proof/constants/typography.dart';
-import 'package:ai_proof/widgets/components/buttons.dart';
+import 'package:aiproof/constants/colors.dart';
+import 'package:aiproof/constants/sizes.dart';
+import 'package:aiproof/constants/typography.dart';
+import 'package:aiproof/widgets/components/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 
-class MyButtonStyle extends StatelessWidget {
-  const MyButtonStyle({super.key});
+class TestButtons extends StatelessWidget {
+  const TestButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class MyButtonStyle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const h1(text: "Button Theme"),
+            APTypography.h1("Button Theme"),
             const SizedBox(height: Spacing.sm),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -59,7 +59,7 @@ class MyButtonStyle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const h1(text: "Button Size"),
+            APTypography.h1("Button Size"),
             const SizedBox(height: Spacing.sm),
             APButton(
               text: "Large",
