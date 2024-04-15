@@ -70,6 +70,7 @@ dependencies:
   sqflite: ^2.3.2
   # T
   tutorial_coach_mark: ^1.2.11
+  carousel_slider: ^4.2.1
   # U
   # V
   # W
@@ -120,8 +121,9 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
   assets:
-    - assets/imgs/splash/logo.png
-    - assets/imgs/splash/splash_background.png
+    - assets/imgs/splash/
+    - assets/svgs/illust/
+    - assets/imgs/app_logo/
 
   fonts:
     - family: Outfit
