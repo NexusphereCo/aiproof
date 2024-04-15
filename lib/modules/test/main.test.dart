@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) => MaterialApp(
           title: 'aiproof',
           theme: APTheme.data(),
-          home: const TestCounterScreen(),
+          home: const TestHomeScreen(),
           debugShowCheckedModeBanner: false,
         ),
       ),

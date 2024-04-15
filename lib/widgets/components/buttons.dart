@@ -41,6 +41,49 @@ class APBackButton extends StatelessWidget {
   }
 }
 
+class APViewButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final bool isActive;
+  final bool isLeft;
+  final bool isRight;
+
+  const APViewButton({
+    super.key,
+    required this.onPressed,
+    required this.icon,
+    required this.isActive,
+    this.isLeft = false,
+    this.isRight = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: isLeft ? const Radius.circular(APBorderRadius.sm) : Radius.zero,
+            bottomLeft: isLeft ? const Radius.circular(APBorderRadius.sm) : Radius.zero,
+            topRight: isRight ? const Radius.circular(APBorderRadius.sm) : Radius.zero,
+            bottomRight: isRight ? const Radius.circular(APBorderRadius.sm) : Radius.zero,
+          ),
+          color: isActive ? APColor.primary[100] : null,
+        ),
+        child: IconButton(
+          onPressed: onPressed,
+          icon: Icon(
+            icon,
+            size: 20,
+            color: APColor.dark.withOpacity(isActive ? 1 : 0.5),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class APNavButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
@@ -48,12 +91,12 @@ class APNavButton extends StatelessWidget {
   final bool isActive;
 
   const APNavButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.icon,
     required this.text,
     this.isActive = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

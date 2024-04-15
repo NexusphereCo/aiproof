@@ -1,4 +1,5 @@
 import 'package:aiproof/modules/home/index.dart';
+import 'package:aiproof/modules/input/index.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -10,15 +11,18 @@ class Routes {
   // Homepage related
   // --------------------------------------------------------------------------------------
   static const home = '/home';
+  static const input = '/input';
 
   // Map that associates route names with their corresponding screen widgets.
   static final Map<String, Widget Function()> routesMap = {
     home: () => const HomeScreen(),
+    input: () => const InputScreen(),
   };
 
   // Map that associates route names with their corresponding builder functions.
   static final routes = <String, WidgetBuilder>{
     home: (BuildContext context) => const HomeScreen(),
+    input: (BuildContext context) => const InputScreen(),
   };
 }
 
