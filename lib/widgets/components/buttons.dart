@@ -107,7 +107,7 @@ class APNavButton extends StatelessWidget {
         children: [
           Icon(
             icon,
-            size: 24,
+            size: 20,
             color: APColor.dark.withOpacity(isActive ? 1 : 0.5),
           ),
           const SizedBox(height: 4),
@@ -171,7 +171,7 @@ class APButton extends StatelessWidget {
         width = MediaQuery.of(context).size.width * 0.70 - Global.paddingBody * 2;
         break;
       case APButtonSize.lg:
-        width = MediaQuery.of(context).size.width * 0.90 - Global.paddingBody * 2;
+        width = MediaQuery.of(context).size.width * 1 - Global.paddingBody * 2;
         break;
     }
 

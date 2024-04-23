@@ -124,6 +124,7 @@ flutter:
     - assets/imgs/splash/
     - assets/svgs/illust/
     - assets/imgs/app_logo/
+    - assets/imgs/doc/
 
   fonts:
     - family: Outfit

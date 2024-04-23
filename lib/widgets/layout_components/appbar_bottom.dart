@@ -1,3 +1,4 @@
+import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:aiproof/widgets/components/buttons.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 8.0,
-      color: Colors.white,
+      color: APColor.light,
       child: buildContents(),
     );
   }
