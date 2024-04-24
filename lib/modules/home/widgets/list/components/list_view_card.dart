@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class ListViewCard extends StatelessWidget {
   final DocumentModel document;
 
-  const ListViewCard({required this.document});
+  const ListViewCard({super.key, required this.document});
 
   @override
   Widget build(BuildContext context) {

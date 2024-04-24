@@ -1,13 +1,12 @@
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/modules/home/widgets/grid/components/grid_view_card.dart';
-import 'package:aiproof/modules/home/widgets/list/components/list_view_card.dart';
 import 'package:flutter/material.dart';
 
-class MyGridView extends StatelessWidget {
+class APGridView extends StatelessWidget {
   final List<DocumentModel> documents;
 
-  MyGridView({required this.documents});
+  const APGridView({super.key, required this.documents});
 
   @override
   Widget build(BuildContext context) {

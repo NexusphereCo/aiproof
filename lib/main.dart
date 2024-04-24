@@ -13,5 +13,5 @@ Future<void> main() async {
   DatabaseService databaseService = DatabaseService();
 
   // run the application
-  runApp(const MyApp());
+  runApp(const App());
 }

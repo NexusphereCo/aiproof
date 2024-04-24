@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class CarouselViewCard extends StatelessWidget {
   final DocumentModel document;
 
-  CarouselViewCard({required this.document});
+  const CarouselViewCard({super.key, required this.document});
 
   @override
   Widget build(BuildContext context) {

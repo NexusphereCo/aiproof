@@ -4,10 +4,10 @@ import 'package:aiproof/modules/home/widgets/carousel/components/carouset_view_c
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class MyCarouselView extends StatelessWidget {
+class APCarouselView extends StatelessWidget {
   final List<DocumentModel> documents;
 
-  const MyCarouselView({super.key, required this.documents});
+  const APCarouselView({super.key, required this.documents});
 
   @override
   Widget build(BuildContext context) {

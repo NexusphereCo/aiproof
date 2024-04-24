@@ -3,10 +3,10 @@ import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/modules/home/widgets/list/components/list_view_card.dart';
 import 'package:flutter/material.dart';
 
-class MyListView extends StatelessWidget {
+class APListView extends StatelessWidget {
   final List<DocumentModel> documents;
 
-  const MyListView({super.key, required this.documents});
+  const APListView({super.key, required this.documents});
 
   @override
   Widget build(BuildContext context) {
