@@ -75,10 +75,52 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          // open a modalsheet
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return SizedBox(
+                height: 180,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      // add a line
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: Spacing.md),
+                        height: 4,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      ListTile(
+                        leading: const Icon(Remix.speak_line, size: APSize.xl),
+                        title: const Text('Text-to-Speech'),
+                        onTap: () {
+                          // Handle text-to-speech option
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Remix.brain_line, size: APSize.xl),
+                        title: const Text('AI Checker'),
+                        onTap: () {
+                          // Handle AI checker option
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
         child: const Icon(
           Remix.camera_line,
-          size: 25,
+          size: APSize.xl,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

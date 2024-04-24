@@ -88,6 +88,7 @@ flutter_native_splash:
 
   android_12:
     image: assets/imgs/splash/logo.png
+    background_image: assets/imgs/splash/splash_background.png
 
 dev_dependencies:
   flutter_test:
