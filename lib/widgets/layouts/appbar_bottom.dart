@@ -1,6 +1,6 @@
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/utils/routes.dart';
-import 'package:aiproof/widgets/components/buttons.dart';
+import 'package:aiproof/widgets/common/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -34,7 +34,7 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
               Navigator.of(context).push(createRoute(route: Routes.input));
             }
           },
-          icon: Remix.qr_scan_2_line,
+          icon: Remix.input_field,
           text: "Scan Input",
           isActive: widget.activeIndex == 2,
         ),

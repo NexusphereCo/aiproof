@@ -1,8 +1,8 @@
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
-import 'package:aiproof/widgets/components/buttons.dart';
-import 'package:aiproof/widgets/layout_components/appbar_bottom.dart';
+import 'package:aiproof/widgets/common/buttons.dart';
+import 'package:aiproof/widgets/layouts/appbar_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 

@@ -8,7 +8,7 @@ import 'package:aiproof/modules/home/enums/doc_view.dart';
 import 'package:aiproof/modules/home/widgets/carousel/carousel_view.dart';
 import 'package:aiproof/modules/home/widgets/grid/grid_view.dart';
 import 'package:aiproof/modules/home/widgets/list/list_view.dart';
-import 'package:aiproof/widgets/layout_components/appbar_bottom.dart';
+import 'package:aiproof/widgets/layouts/appbar_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:remixicon/remixicon.dart';
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isScrollControlled: true,
             builder: (BuildContext context) {
               return SizedBox(
-                height: 180,
+                height: 220,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -102,6 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: const Text('Text-to-Speech'),
                         onTap: () {
                           // Handle text-to-speech option
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Remix.gallery_line, size: APSize.xl),
+                        title: const Text('Scan from Image'),
+                        onTap: () {
+                          // Handle AI checker option
                         },
                       ),
                       ListTile(
