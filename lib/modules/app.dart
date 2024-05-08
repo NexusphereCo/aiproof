@@ -1,6 +1,9 @@
+import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/constants/theme.dart';
+import 'package:aiproof/data/database/database_service.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatefulWidget {
@@ -15,12 +18,17 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (context, child) => MaterialApp(
-        title: 'aiproof',
-        theme: APTheme.data(),
-        routes: Routes.routes,
-        initialRoute: Routes.home,
-        debugShowCheckedModeBanner: false,
+      builder: (context, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => DocumentBloc(DatabaseServices.instance)),
+        ],
+        child: MaterialApp(
+          title: 'aiproof',
+          theme: APTheme.data(),
+          routes: Routes.routes,
+          initialRoute: Routes.home,
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }
