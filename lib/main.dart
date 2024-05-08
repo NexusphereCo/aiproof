@@ -1,4 +1,3 @@
-import 'package:aiproof/database/database_service.dart';
 import 'package:aiproof/modules/app.dart';
 import 'package:aiproof/utils/global.dart';
 
@@ -9,9 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setSystemUIOverlayStyle();
   await setPreferredOrientations();
-
-  DatabaseService databaseService = DatabaseService();
-
   // run the application
   runApp(const App());
 }
