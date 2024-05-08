@@ -14,7 +14,12 @@ class APListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
       itemCount: documents.length,
       itemBuilder: (context, index) {
-        return ListViewCard(document: documents[index]);
+        return Padding(
+          padding: const EdgeInsetsDirectional.only(bottom: Spacing.md),
+          child: ListViewCard(
+            document: documents[index],
+          ),
+        );
       },
     );
   }

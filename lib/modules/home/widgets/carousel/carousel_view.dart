@@ -20,6 +20,7 @@ class APCarouselView extends StatelessWidget {
             autoPlay: false,
             aspectRatio: 1,
             enlargeCenterPage: true,
+            enableInfiniteScroll: false,
           ),
           items: documents.map((document) => CarouselViewCard(document: document)).toList(),
         ),

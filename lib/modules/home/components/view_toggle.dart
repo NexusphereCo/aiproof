@@ -49,7 +49,7 @@ class _ViewToggleState extends State<ViewToggle> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            APTypography.base("6 items"),
+            APTypography.base("items"),
             GestureDetector(
               onTap: () {},
               child: Row(
