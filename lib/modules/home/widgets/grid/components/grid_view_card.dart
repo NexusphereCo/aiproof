@@ -4,7 +4,6 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
-import 'package:aiproof/modules/input/index.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 

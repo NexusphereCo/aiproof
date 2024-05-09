@@ -1,3 +1,4 @@
+import 'package:aiproof/modules/camera/index.dart';
 import 'package:aiproof/modules/home/index.dart';
 import 'package:aiproof/modules/input/index.dart';
 import 'package:flutter/material.dart';
@@ -11,18 +12,21 @@ class Routes {
   // Homepage related
   // --------------------------------------------------------------------------------------
   static const home = '/home';
+  static const camera = '/camera';
   static const input = '/input';
 
   // Map that associates route names with their corresponding screen widgets.
   static final Map<String, Widget Function()> routesMap = {
     home: () => const HomeScreen(),
     input: () => const InputScreen(),
+    camera: () => const CameraScreen(),
   };
 
   // Map that associates route names with their corresponding builder functions.
   static final routes = <String, WidgetBuilder>{
     home: (BuildContext context) => const HomeScreen(),
     input: (BuildContext context) => const InputScreen(),
+    camera: (BuildContext context) => const CameraScreen(),
   };
 }
 
