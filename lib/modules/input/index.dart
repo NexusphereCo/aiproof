@@ -3,6 +3,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,7 @@ class InputScreen extends StatefulWidget {
   const InputScreen({super.key, this.document});
 
   @override
-  _InputScreenState createState() => _InputScreenState();
+  State<InputScreen> createState() => _InputScreenState();
 }
 
 class _InputScreenState extends State<InputScreen> {
@@ -42,8 +43,15 @@ class _InputScreenState extends State<InputScreen> {
     super.dispose();
   }
 
+  // String getArgs(BuildContext context) {
+  //   final args = ModalRoute.of(context)?.settings.arguments as String? ?? '';
+  //   return args;
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // String arg = getArgs(context);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -135,6 +143,48 @@ class _InputScreenState extends State<InputScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: APColor.light,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.home) {
+                  Navigator.of(context).push(createRoute(route: Routes.camera));
+                }
+              },
+              icon: const Icon(
+                Remix.camera_2_line,
+              ),
+              tooltip: 'Scan Document',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.brain_line,
+              ),
+              tooltip: 'AI Checker',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.file_warning_line,
+              ),
+              tooltip: 'Plagiarism Checker',
+            ),
+          ],
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

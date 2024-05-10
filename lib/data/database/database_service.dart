@@ -7,12 +7,12 @@ import 'package:path/path.dart';
 
 class DatabaseServices {
   final Logger log = Logger();
-  static final _databaseName = "aiproof.db";
-  static final table = 'documents';
-  static final columnId = 'id';
-  static final columnTitle = 'title';
-  static final columnContent = 'content';
-  static final columnCreatedAt = 'createdAt';
+  static const _databaseName = "aiproof.db";
+  static const table = 'documents';
+  static const columnId = 'id';
+  static const columnTitle = 'title';
+  static const columnContent = 'content';
+  static const columnCreatedAt = 'createdAt';
 
   DatabaseServices._internal();
   static final DatabaseServices instance = DatabaseServices._internal();
