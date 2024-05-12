@@ -1,6 +1,7 @@
 import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
+import 'package:aiproof/constants/theme.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,7 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<AppBarBloc, AppBarState>(
       builder: (context, state) {
         return AppBar(
+          iconTheme: IconThemeData(color: APColor.dark),
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
@@ -57,6 +59,7 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onDeletePressed,
                 icon: const Icon(Remix.delete_bin_line),
               ),
+            const SizedBox(width: Spacing.sm + Spacing.xs),
           ],
         );
       },
@@ -64,5 +67,5 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(56);
 }

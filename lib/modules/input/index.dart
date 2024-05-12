@@ -4,6 +4,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/utils/routes.dart';
 import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -85,57 +86,103 @@ class _InputScreenState extends State<InputScreen> {
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                focusNode: titleFocusNode,
-                style: TextStyle(
-                  fontWeight: APFontWeight.regular,
-                  fontSize: APFontSize.h1,
-                  fontFamily: APTypography.fontFamily,
-                  color: APColor.dark,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.h1,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Title',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  ),
+                  autofocus: true,
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLength: 255,
                 ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Title',
-                  counterText: '',
+                TextField(
+                  controller: contentController,
+                  focusNode: contentFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.normal,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Write something here...',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  ),
+                  maxLength: 8000,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLines: null,
                 ),
-                autofocus: true,
-                minLines: 1,
-                maxLines: 3,
-                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLength: 255,
-              ),
-              TextField(
-                controller: contentController,
-                focusNode: contentFocusNode,
-                style: TextStyle(
-                  fontWeight: APFontWeight.regular,
-                  fontSize: APFontSize.normal,
-                  fontFamily: APTypography.fontFamily,
-                  color: APColor.dark,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Write something here...',
-                  counterText: '',
-                ),
-                maxLength: 8000,
-                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLines: null,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: APColor.light,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.home) {
+                  Navigator.of(context).push(createRoute(route: Routes.camera));
+                }
+              },
+              icon: const Icon(
+                Remix.camera_2_line,
+              ),
+              tooltip: 'Scan Document',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.brain_line,
+              ),
+              tooltip: 'AI Checker',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.file_warning_line,
+              ),
+              tooltip: 'Plagiarism Checker',
+            ),
+          ],
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
     );
   }
 
@@ -176,56 +223,102 @@ class _InputScreenState extends State<InputScreen> {
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                focusNode: titleFocusNode,
-                style: TextStyle(
-                  fontWeight: APFontWeight.regular,
-                  fontSize: APFontSize.h1,
-                  fontFamily: APTypography.fontFamily,
-                  color: APColor.dark,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.h1,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Title',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  ),
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLength: 255,
                 ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Title',
-                  counterText: '',
+                TextField(
+                  controller: contentController,
+                  focusNode: contentFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.normal,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Write something here...',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  ),
+                  maxLength: 8000,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLines: null,
                 ),
-                minLines: 1,
-                maxLines: 3,
-                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLength: 255,
-              ),
-              TextField(
-                controller: contentController,
-                focusNode: contentFocusNode,
-                style: TextStyle(
-                  fontWeight: APFontWeight.regular,
-                  fontSize: APFontSize.normal,
-                  fontFamily: APTypography.fontFamily,
-                  color: APColor.dark,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Write something here...',
-                  counterText: '',
-                ),
-                maxLength: 8000,
-                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLines: null,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: APColor.light,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.home) {
+                  Navigator.of(context).push(createRoute(route: Routes.camera));
+                }
+              },
+              icon: const Icon(
+                Remix.camera_2_line,
+              ),
+              tooltip: 'Scan Document',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.brain_line,
+              ),
+              tooltip: 'AI Checker',
+            ),
+            IconButton(
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != Routes.input) {
+                  Navigator.of(context).push(createRoute(route: Routes.input));
+                }
+              },
+              icon: const Icon(
+                Remix.file_warning_line,
+              ),
+              tooltip: 'Plagiarism Checker',
+            ),
+          ],
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
