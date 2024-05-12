@@ -1,9 +1,10 @@
+import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
 import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
-import 'package:aiproof/utils/routes.dart';
+import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,92 +20,84 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController _titleController;
-  late TextEditingController _contentController;
-  late FocusNode _titleFocusNode;
-  late FocusNode _contentFocusNode;
+  final titleFocusNode = FocusNode();
+  final contentFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.document?.title ?? '');
-    _contentController = TextEditingController(text: widget.document?.content ?? '');
-    _titleFocusNode = FocusNode();
-    _contentFocusNode = FocusNode();
+    titleFocusNode.addListener(_handleFocusChange);
+    contentFocusNode.addListener(_handleFocusChange);
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _contentController.dispose();
-    _titleFocusNode.dispose();
-    _contentFocusNode.dispose();
+    titleFocusNode.removeListener(_handleFocusChange);
+    contentFocusNode.removeListener(_handleFocusChange);
+    titleFocusNode.dispose();
+    contentFocusNode.dispose();
     super.dispose();
   }
 
-  // String getArgs(BuildContext context) {
-  //   final args = ModalRoute.of(context)?.settings.arguments as String? ?? '';
-  //   return args;
-  // }
+  void _handleFocusChange() {
+    final hasFocus = titleFocusNode.hasFocus || contentFocusNode.hasFocus;
+    context.read<AppBarBloc>().add(FocusChangedEvent(hasFocus));
+  }
 
   @override
   Widget build(BuildContext context) {
-    // String arg = getArgs(context);
+    final DocumentModel? document = ModalRoute.of(context)?.settings.arguments as DocumentModel?;
+    return document == null ? buildCreateWidget(context) : buildEditWidget(context, document);
+  }
+
+  Widget buildCreateWidget(BuildContext context) {
+    final titleController = TextEditingController(text: 'Untitled Document');
+    final contentController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<DocumentBloc>().add(DeleteDocumentEvent(widget.document?.id ?? 0));
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Remix.delete_bin_line,
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              if (_formKey.currentState!.validate()) {
-                final document = DocumentModel(
-                  id: widget.document?.id,
-                  title: _titleController.text,
-                  content: _contentController.text,
-                  createdAt: DateTime.now(),
-                );
+      appBar: APAppBar(
+        onDonePressed: () {
+          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+          final document = DocumentModel(
+            title: title,
+            content: contentController.text,
+            createdAt: DateTime.now(),
+          );
 
-                if (widget.document == null) {
-                  context.read<DocumentBloc>().add(CreateDocumentEvent(document));
-                } else {
-                  context.read<DocumentBloc>().add(UpdateDocumentEvent(document));
-                }
-                Navigator.pop(context);
-              }
-            },
-            child: APTypography.h3(
-              'Done',
-              color: APColor.dark,
-              fontWeight: APFontWeight.regular,
-            ),
-          ),
-          const SizedBox(width: APSize.lg),
-        ],
+          context.read<DocumentBloc>().add(CreateDocumentEvent(document));
+          titleController.text = title;
+        },
+        onDeletePressed: () {
+          context.read<DocumentBloc>().add(DeleteDocumentEvent(0));
+          Navigator.pop(context);
+        },
+        onBackPressed: () {
+          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+          final document = DocumentModel(
+            title: title,
+            content: contentController.text,
+            createdAt: DateTime.now(),
+          );
+
+          context.read<DocumentBloc>().add(CreateDocumentEvent(document));
+          titleController.text = title;
+        },
+        titleFocusNode: titleFocusNode,
+        contentFocusNode: contentFocusNode,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
           child: Column(
             children: [
-              APTypography.base(widget.document?.createdAt.toIso8601String() ?? '', color: APColor.dark.withOpacity(0.5)),
               TextField(
-                controller: _titleController,
-                focusNode: _titleFocusNode,
-                style: const TextStyle(
-                  fontWeight: APFontWeight.bold,
+                controller: titleController,
+                focusNode: titleFocusNode,
+                style: TextStyle(
+                  fontWeight: APFontWeight.regular,
                   fontSize: APFontSize.h1,
                   fontFamily: APTypography.fontFamily,
+                  color: APColor.dark,
                 ),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -113,15 +106,15 @@ class _InputScreenState extends State<InputScreen> {
                   hintText: 'Title',
                   counterText: '',
                 ),
-
+                autofocus: true,
                 minLines: 1,
                 maxLines: 3,
                 maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLength: 255, // Add this line to hide the character count
+                maxLength: 255,
               ),
               TextField(
-                controller: _contentController,
-                focusNode: _contentFocusNode,
+                controller: contentController,
+                focusNode: contentFocusNode,
                 style: TextStyle(
                   fontWeight: APFontWeight.regular,
                   fontSize: APFontSize.normal,
@@ -143,48 +136,96 @@ class _InputScreenState extends State<InputScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: APColor.light,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.home) {
-                  Navigator.of(context).push(createRoute(route: Routes.camera));
-                }
-              },
-              icon: const Icon(
-                Remix.camera_2_line,
+    );
+  }
+
+  Widget buildEditWidget(BuildContext context, DocumentModel document) {
+    final titleController = TextEditingController(text: document.title.isNotEmpty ? document.title : 'Untitled Document');
+    final contentController = TextEditingController(text: document.content);
+
+    return Scaffold(
+      appBar: APAppBar(
+        onDonePressed: () {
+          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+          final updatedDocument = DocumentModel(
+            id: document.id,
+            title: title,
+            content: contentController.text,
+            createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
+          );
+
+          context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
+          titleController.text = title;
+        },
+        onDeletePressed: () {
+          context.read<DocumentBloc>().add(DeleteDocumentEvent(document.id as int));
+          Navigator.pop(context);
+        },
+        onBackPressed: () {
+          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+          final updatedDocument = DocumentModel(
+            id: document.id,
+            title: title,
+            content: contentController.text,
+            createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
+          );
+
+          context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
+          titleController.text = title;
+        },
+        titleFocusNode: titleFocusNode,
+        contentFocusNode: contentFocusNode,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          child: Column(
+            children: [
+              TextField(
+                controller: titleController,
+                focusNode: titleFocusNode,
+                style: TextStyle(
+                  fontWeight: APFontWeight.regular,
+                  fontSize: APFontSize.h1,
+                  fontFamily: APTypography.fontFamily,
+                  color: APColor.dark,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: 'Title',
+                  counterText: '',
+                ),
+                minLines: 1,
+                maxLines: 3,
+                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                maxLength: 255,
               ),
-              tooltip: 'Scan Document',
-            ),
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.input) {
-                  Navigator.of(context).push(createRoute(route: Routes.input));
-                }
-              },
-              icon: const Icon(
-                Remix.brain_line,
+              TextField(
+                controller: contentController,
+                focusNode: contentFocusNode,
+                style: TextStyle(
+                  fontWeight: APFontWeight.regular,
+                  fontSize: APFontSize.normal,
+                  fontFamily: APTypography.fontFamily,
+                  color: APColor.dark,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: 'Write something here...',
+                  counterText: '',
+                ),
+                maxLength: 8000,
+                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                maxLines: null,
               ),
-              tooltip: 'AI Checker',
-            ),
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.input) {
-                  Navigator.of(context).push(createRoute(route: Routes.input));
-                }
-              },
-              icon: const Icon(
-                Remix.file_warning_line,
-              ),
-              tooltip: 'Plagiarism Checker',
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }
