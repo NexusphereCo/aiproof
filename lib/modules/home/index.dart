@@ -21,16 +21,38 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
+  final _scrollController = ScrollController();
+  final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     context.read<DocumentBloc>().add(LoadDocumentEvent());
+
+    _focusNode.addListener(
+      () {
+        if (_focusNode.hasFocus) {
+          _scrollController.animateTo(
+            _scrollController.offset + 95.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        } else {
+          _scrollController.animateTo(
+            _scrollController.offset - 95.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _focusNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -40,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
           return SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -49,16 +72,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     Positioned(
                       child: SvgPicture.asset(Asset.heading, fit: BoxFit.fill),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(Global.paddingBody),
+                    Padding(
+                      padding: const EdgeInsets.all(Global.paddingBody),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          HeaderLogo(),
-                          SizedBox(height: Spacing.xl),
-                          APSearchBar(),
-                          SizedBox(height: Spacing.xxl + Spacing.lg),
-                          ViewToggle(),
+                          const HeaderLogo(),
+                          const SizedBox(height: Spacing.xl),
+                          APSearchBar(focusNode: _focusNode),
+                          const SizedBox(height: Spacing.xxl + Spacing.lg),
+                          const ViewToggle(),
                         ],
                       ),
                     ),
