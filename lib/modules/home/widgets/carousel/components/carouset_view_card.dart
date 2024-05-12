@@ -28,7 +28,12 @@ class CarouselViewCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(APBorderRadius.md),
           child: Stack(
             children: <Widget>[
-              // Image.asset(document.image, fit: BoxFit.cover, width: 1000.0),
+              Image.memory(
+                document.thumbnail!,
+                fit: BoxFit.cover,
+                width: 1000.0,
+                alignment: Alignment.topCenter,
+              ),
               Positioned(
                 bottom: 0.0,
                 left: 0.0,
@@ -43,7 +48,7 @@ class CarouselViewCard extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
-                        child: APTypography.h2(document.title, cutOverflow: true, maxLines: 2, fontWeight: APFontWeight.bold),
+                        child: APTypography.h2(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
                       ),
                       // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),
                       const SizedBox(height: Spacing.sm), // Add this line

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
 import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
@@ -7,6 +9,7 @@ import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remixicon/remixicon.dart';
@@ -23,6 +26,7 @@ class InputScreen extends StatefulWidget {
 class _InputScreenState extends State<InputScreen> {
   final titleFocusNode = FocusNode();
   final contentFocusNode = FocusNode();
+  final GlobalKey globalKey = GlobalKey();
 
   @override
   void initState() {
@@ -45,6 +49,19 @@ class _InputScreenState extends State<InputScreen> {
     context.read<AppBarBloc>().add(FocusChangedEvent(hasFocus));
   }
 
+  Future<Uint8List> capturePng() async {
+    try {
+      RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      return pngBytes;
+    } catch (e) {
+      print(e);
+      return Uint8List(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final DocumentModel? document = ModalRoute.of(context)?.settings.arguments as DocumentModel?;
@@ -55,88 +72,87 @@ class _InputScreenState extends State<InputScreen> {
     final titleController = TextEditingController(text: 'Untitled Document');
     final contentController = TextEditingController();
 
+    Future<void> saveDocument() async {
+      final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+      final thumbnail = await capturePng();
+      final document = DocumentModel(
+        title: title,
+        content: contentController.text,
+        createdAt: DateTime.now(),
+        thumbnail: thumbnail,
+      );
+
+      context.read<DocumentBloc>().add(CreateDocumentEvent(document));
+      titleController.text = title;
+    }
+
     return Scaffold(
       appBar: APAppBar(
-        onDonePressed: () {
-          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
-          final document = DocumentModel(
-            title: title,
-            content: contentController.text,
-            createdAt: DateTime.now(),
-          );
-
-          context.read<DocumentBloc>().add(CreateDocumentEvent(document));
-          titleController.text = title;
-        },
+        onDonePressed: () {},
         onDeletePressed: () {
           context.read<DocumentBloc>().add(DeleteDocumentEvent(0));
           Navigator.pop(context);
         },
-        onBackPressed: () {
-          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
-          final document = DocumentModel(
-            title: title,
-            content: contentController.text,
-            createdAt: DateTime.now(),
-          );
-
-          context.read<DocumentBloc>().add(CreateDocumentEvent(document));
-          titleController.text = title;
+        onBackPressed: () async {
+          await saveDocument();
         },
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-          child: Form(
-            child: Column(
-              children: [
-                TextField(
-                  controller: titleController,
-                  focusNode: titleFocusNode,
-                  style: TextStyle(
-                    fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.h1,
-                    fontFamily: APTypography.fontFamily,
-                    color: APColor.dark,
+        child: RepaintBoundary(
+          key: globalKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+            child: Form(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: titleController,
+                    focusNode: titleFocusNode,
+                    style: TextStyle(
+                      fontWeight: APFontWeight.regular,
+                      fontSize: APFontSize.h1,
+                      fontFamily: APTypography.fontFamily,
+                      color: APColor.dark,
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Title',
+                      counterText: '',
+                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    ),
+                    autofocus: true,
+                    minLines: 1,
+                    maxLines: 3,
+                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    maxLength: 255,
                   ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Title',
-                    counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  TextField(
+                    controller: contentController,
+                    focusNode: contentFocusNode,
+                    style: TextStyle(
+                      fontWeight: APFontWeight.regular,
+                      fontSize: APFontSize.normal,
+                      fontFamily: APTypography.fontFamily,
+                      color: APColor.dark,
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Write something here...',
+                      counterText: '',
+                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    ),
+                    maxLength: 8000,
+                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    maxLines: null,
                   ),
-                  autofocus: true,
-                  minLines: 1,
-                  maxLines: 3,
-                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLength: 255,
-                ),
-                TextField(
-                  controller: contentController,
-                  focusNode: contentFocusNode,
-                  style: TextStyle(
-                    fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.normal,
-                    fontFamily: APTypography.fontFamily,
-                    color: APColor.dark,
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Write something here...',
-                    counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                  ),
-                  maxLength: 8000,
-                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLines: null,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -190,89 +206,89 @@ class _InputScreenState extends State<InputScreen> {
     final titleController = TextEditingController(text: document.title.isNotEmpty ? document.title : 'Untitled Document');
     final contentController = TextEditingController(text: document.content);
 
+    Future<void> saveDocument() async {
+      final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
+      final thumbnail = await capturePng();
+      final updatedDocument = DocumentModel(
+        id: document.id,
+        title: title,
+        content: contentController.text,
+        createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
+        thumbnail: thumbnail,
+      );
+
+      context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
+      titleController.text = title;
+    }
+
     return Scaffold(
       appBar: APAppBar(
-        onDonePressed: () {
-          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
-          final updatedDocument = DocumentModel(
-            id: document.id,
-            title: title,
-            content: contentController.text,
-            createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
-          );
-
-          context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
-          titleController.text = title;
+        onDonePressed: () async {
+          await saveDocument();
         },
         onDeletePressed: () {
           context.read<DocumentBloc>().add(DeleteDocumentEvent(document.id as int));
           Navigator.pop(context);
         },
-        onBackPressed: () {
-          final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
-          final updatedDocument = DocumentModel(
-            id: document.id,
-            title: title,
-            content: contentController.text,
-            createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
-          );
-
-          context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
-          titleController.text = title;
+        onBackPressed: () async {
+          await saveDocument();
         },
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-          child: Form(
-            child: Column(
-              children: [
-                TextField(
-                  controller: titleController,
-                  focusNode: titleFocusNode,
-                  style: TextStyle(
-                    fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.h1,
-                    fontFamily: APTypography.fontFamily,
-                    color: APColor.dark,
+        child: RepaintBoundary(
+          key: globalKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+            child: Form(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: titleController,
+                    focusNode: titleFocusNode,
+                    style: TextStyle(
+                      fontWeight: APFontWeight.regular,
+                      fontSize: APFontSize.h1,
+                      fontFamily: APTypography.fontFamily,
+                      color: APColor.dark,
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Title',
+                      counterText: '',
+                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    ),
+                    minLines: 1,
+                    maxLines: 3,
+                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    maxLength: 255,
                   ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Title',
-                    counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  TextField(
+                    controller: contentController,
+                    focusNode: contentFocusNode,
+                    style: TextStyle(
+                      fontWeight: APFontWeight.regular,
+                      fontSize: APFontSize.normal,
+                      fontFamily: APTypography.fontFamily,
+                      color: APColor.dark,
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Write something here...',
+                      counterText: '',
+                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    ),
+                    maxLength: 8000,
+                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    maxLines: null,
                   ),
-                  minLines: 1,
-                  maxLines: 3,
-                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLength: 255,
-                ),
-                TextField(
-                  controller: contentController,
-                  focusNode: contentFocusNode,
-                  style: TextStyle(
-                    fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.normal,
-                    fontFamily: APTypography.fontFamily,
-                    color: APColor.dark,
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Write something here...',
-                    counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                  ),
-                  maxLength: 8000,
-                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLines: null,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

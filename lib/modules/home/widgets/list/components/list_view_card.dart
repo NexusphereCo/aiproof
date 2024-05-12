@@ -31,21 +31,20 @@ class ListViewCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Image.asset(
-              //   document.image,
-              //   width: 100,
-              //   height: 80,
-              //   fit: BoxFit.cover,
-              // ),
-              const SizedBox(
-                width: Spacing.md,
+              Image.memory(
+                document.thumbnail!,
+                width: 100,
+                height: 80,
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter,
               ),
+              const SizedBox(width: Spacing.sm),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: APTypography.h4(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
                   ),
                   const SizedBox(height: Spacing.xs), // Add this line

@@ -29,7 +29,12 @@ class GridViewCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(APBorderRadius.md),
           child: Stack(
             children: <Widget>[
-              // Image.asset(document.image, fit: BoxFit.cover, width: 1000.0),
+              Image.memory(
+                document.thumbnail!,
+                fit: BoxFit.cover,
+                width: 1000.0,
+                alignment: Alignment.topCenter,
+              ),
               Positioned(
                 bottom: 0.0,
                 left: 0.0,
