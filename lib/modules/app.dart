@@ -1,3 +1,4 @@
+import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
 import 'package:aiproof/business_logic/document_view/document_view_bloc.dart';
 import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/constants/theme.dart';
@@ -23,6 +24,7 @@ class _AppState extends State<App> {
         providers: [
           BlocProvider(create: (_) => DocumentBloc(DatabaseServices.instance)),
           BlocProvider(create: (_) => DocViewBloc()),
+          BlocProvider(create: (_) => AppBarBloc()),
         ],
         child: MaterialApp(
           title: 'aiproof',
