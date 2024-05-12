@@ -14,7 +14,6 @@ class APCarouselView extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const SizedBox(height: APBorderRadius.lg),
         CarouselSlider(
           options: CarouselOptions(
             autoPlay: false,

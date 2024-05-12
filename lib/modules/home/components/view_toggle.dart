@@ -1,3 +1,4 @@
+import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/business_logic/document_view/document_view_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
@@ -42,57 +43,70 @@ class _ViewToggleState extends State<ViewToggle> {
         },
       ),
     );
+    return BlocBuilder<DocumentBloc, DocumentState>(
+      builder: (context, state) {
+        int docLength;
 
-    return Stack(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            APTypography.base("items"),
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
+        if (state is LoadedDocumentState) {
+          docLength = state.documents.length;
+        } else if (state is FilteredDocument) {
+          docLength = state.documents.length;
+        } else {
+          docLength = 0; // Default value when no documents are loaded
+        }
+        String itemText = docLength <= 1 ? "item" : "items";
+
+        return SizedBox(
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Remix.sort_alphabet_asc),
-                    iconSize: 20,
+                  APTypography.base("$docLength $itemText"),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Icon(Remix.sort_alphabet_asc, size: 20),
+                        const SizedBox(width: Spacing.xs),
+                        APTypography.base("Sort"),
+                      ],
+                    ),
                   ),
-                  APTypography.base("Sort"),
                 ],
               ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Transform.scale(
-              alignment: Alignment.topCenter,
-              scale: 0.8,
-              child: BlocBuilder<DocViewBloc, DocViewState>(
-                builder: (context, state) {
-                  return SegmentedButton<DocView>(
-                    segments: const <ButtonSegment<DocView>>[
-                      ButtonSegment<DocView>(value: DocView.list, icon: Icon(Remix.list_unordered)),
-                      ButtonSegment<DocView>(value: DocView.carousel, icon: Icon(Remix.carousel_view)),
-                      ButtonSegment<DocView>(value: DocView.grid, icon: Icon(Remix.gallery_view_2)),
-                    ],
-                    selected: <DocView>{state.docView},
-                    onSelectionChanged: (Set<DocView> value) {
-                      context.read<DocViewBloc>().add(DocViewEvent(value.first));
-                    },
-                    showSelectedIcon: false,
-                    style: buttonStyle,
-                  );
-                },
-              ),
-            ),
-          ],
-        )
-      ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Transform.scale(
+                    alignment: Alignment.center,
+                    scale: 0.8,
+                    child: BlocBuilder<DocViewBloc, DocViewState>(
+                      builder: (context, state) {
+                        return SegmentedButton<DocView>(
+                          segments: const <ButtonSegment<DocView>>[
+                            ButtonSegment<DocView>(value: DocView.list, icon: Icon(Remix.list_unordered)),
+                            ButtonSegment<DocView>(value: DocView.carousel, icon: Icon(Remix.carousel_view)),
+                            ButtonSegment<DocView>(value: DocView.grid, icon: Icon(Remix.gallery_view_2)),
+                          ],
+                          selected: <DocView>{state.docView},
+                          onSelectionChanged: (Set<DocView> value) {
+                            context.read<DocViewBloc>().add(DocViewEvent(value.first));
+                          },
+                          showSelectedIcon: false,
+                          style: buttonStyle,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

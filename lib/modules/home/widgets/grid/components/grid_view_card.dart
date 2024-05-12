@@ -17,7 +17,7 @@ class GridViewCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
-          createRoute(route: Routes.input),
+          createRoute(route: Routes.input, args: document),
         );
       },
       child: Container(
@@ -35,13 +35,17 @@ class GridViewCard extends StatelessWidget {
                 left: 0.0,
                 right: 0.0,
                 child: Container(
+                  height: 55,
                   color: APColor.light,
                   padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      APTypography.base(document.title),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: APTypography.h4(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
+                      ),
                     ],
                   ),
                 ),

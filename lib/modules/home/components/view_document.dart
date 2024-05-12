@@ -24,7 +24,9 @@ class _ViewDocumentState extends State<ViewDocument> {
       builder: (context, state) {
         return BlocBuilder<DocViewBloc, DocViewState>(
           builder: (context, viewState) {
-            return Expanded(
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: () {
                 if (state is LoadedDocumentState) {
                   if (viewState.docView == DocView.carousel) {

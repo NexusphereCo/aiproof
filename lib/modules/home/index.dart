@@ -1,6 +1,7 @@
 import 'package:aiproof/business_logic/document/document_bloc.dart';
 import 'package:aiproof/constants/assets.dart';
 import 'package:aiproof/constants/sizes.dart';
+import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/modules/home/components/header_logo.dart';
 import 'package:aiproof/modules/home/components/search_bar.dart';
 import 'package:aiproof/modules/home/components/view_document.dart';
@@ -38,32 +39,34 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                fit: StackFit.passthrough,
-                children: [
-                  Positioned(
-                    child: SvgPicture.asset(Asset.heading, fit: BoxFit.fill),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(Global.paddingBody),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        HeaderLogo(),
-                        SizedBox(height: Spacing.xl),
-                        APSearchBar(),
-                        SizedBox(height: Spacing.xxxl),
-                        ViewToggle(),
-                      ],
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Stack(
+                  fit: StackFit.passthrough,
+                  children: [
+                    Positioned(
+                      child: SvgPicture.asset(Asset.heading, fit: BoxFit.fill),
                     ),
-                  ),
-                ],
-              ),
-              const ViewDocument(),
-            ],
+                    const Padding(
+                      padding: EdgeInsets.all(Global.paddingBody),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          HeaderLogo(),
+                          SizedBox(height: Spacing.xl),
+                          APSearchBar(),
+                          SizedBox(height: Spacing.xxl + Spacing.lg),
+                          ViewToggle(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const ViewDocument(),
+              ],
+            ),
           );
         },
       ),
@@ -75,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

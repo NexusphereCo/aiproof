@@ -4,6 +4,7 @@ import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CarouselViewCard extends StatelessWidget {
   final DocumentModel document;
@@ -15,7 +16,7 @@ class CarouselViewCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
-          createRoute(route: Routes.input),
+          createRoute(route: Routes.input, args: document),
         );
       },
       child: Container(
@@ -33,15 +34,20 @@ class CarouselViewCard extends StatelessWidget {
                 left: 0.0,
                 right: 0.0,
                 child: Container(
+                  height: 90,
                   color: APColor.light,
                   padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      APTypography.base(document.title),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: APTypography.h2(document.title, cutOverflow: true, maxLines: 2, fontWeight: APFontWeight.bold),
+                      ),
                       // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),
-                      APTypography.small(document.createdAt.toIso8601String(), color: APColor.dark.withOpacity(0.5)),
+                      const SizedBox(height: Spacing.sm), // Add this line
+                      APTypography.small(DateFormat('MMMM d, yyyy - h:mm a').format(document.createdAt), color: APColor.dark.withOpacity(0.5)),
                     ],
                   ),
                 ),
