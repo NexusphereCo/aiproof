@@ -1,6 +1,6 @@
-import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
-import 'package:aiproof/business_logic/document_view/document_view_bloc.dart';
-import 'package:aiproof/business_logic/document/document_bloc.dart';
+import 'package:aiproof/bloc/appbar/appbar_bloc.dart';
+import 'package:aiproof/bloc/document_view/document_view_bloc.dart';
+import 'package:aiproof/bloc/document/document_bloc.dart';
 import 'package:aiproof/constants/theme.dart';
 import 'package:aiproof/data/database/database_service.dart';
 import 'package:aiproof/utils/routes.dart';

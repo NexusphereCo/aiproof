@@ -1,4 +1,4 @@
-import 'package:aiproof/business_logic/appbar/appbar_bloc.dart';
+import 'package:aiproof/bloc/appbar/appbar_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/theme.dart';

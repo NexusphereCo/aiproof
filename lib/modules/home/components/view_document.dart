@@ -1,5 +1,5 @@
-import 'package:aiproof/business_logic/document_view/document_view_bloc.dart';
-import 'package:aiproof/business_logic/document/document_bloc.dart';
+import 'package:aiproof/bloc/document_view/document_view_bloc.dart';
+import 'package:aiproof/bloc/document/document_bloc.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/modules/home/enums/doc_view.dart';
 import 'package:aiproof/modules/home/widgets/carousel/carousel_view.dart';
