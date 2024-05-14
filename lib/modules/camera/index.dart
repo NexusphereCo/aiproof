@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aiproof/utils/routes.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -87,6 +88,7 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
               body: _isPermissionGranted
                   ? Column(
                       children: [
+                        APTypography.h4('Scan the document within the frame', color: Colors.amber),
                         Expanded(
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
