@@ -51,6 +51,7 @@ dependencies:
   # G
   google_mlkit_text_recognition: ^0.13.0
   # H
+  http: ^1.2.1
   # I
   intl: ^0.19.0
   # J

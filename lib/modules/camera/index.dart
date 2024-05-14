@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:camera/camera.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
@@ -93,24 +92,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
                         Expanded(
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
-                            // DOTTED BORDER
-                            // child: DottedBorder(
-                            //   borderType: BorderType.RRect,
-                            //   color: Colors.amber,
-                            //   strokeWidth: 2,
-                            //   radius: const Radius.circular(12),
-                            //   padding: const EdgeInsets.all(6),
-                            //   dashPattern: const [20, 15],
-                            //   child: ClipRRect(
-                            //     borderRadius: const BorderRadius.all(Radius.circular(12)),
-                            //     child: Expanded(
-                            //       child: Container(
-                            //         color: Colors.transparent,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // NORMAL
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -230,7 +211,7 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
       final file = File(pictureFile.path);
       final inputImage = InputImage.fromFile(file);
       final recognizedText = await textRecognizer.processImage(inputImage);
-      final scannedDoc = DocumentModel(title: "Untitled", content: recognizedText.text, createdAt: DateTime.now());
+      final scannedDoc = DocumentModel(title: 'Untitled', content: recognizedText.text, createdAt: DateTime.now());
 
       await Navigator.of(context).push(createRoute(route: Routes.input, args: scannedDoc));
     } catch (e) {

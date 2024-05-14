@@ -4,6 +4,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/modules/input/components/appbar_bottom.dart';
 import 'package:aiproof/modules/input/utils/capture_png.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:aiproof/widgets/layouts/appbar_top.dart';
@@ -139,47 +140,7 @@ class _EditDocumentState extends State<EditDocument> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: APColor.light,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.home) {
-                  Navigator.of(context).push(createRoute(route: Routes.camera));
-                }
-              },
-              icon: const Icon(
-                Remix.camera_2_line,
-              ),
-              tooltip: 'Scan Document',
-            ),
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.input) {
-                  Navigator.of(context).push(createRoute(route: Routes.input));
-                }
-              },
-              icon: const Icon(
-                Remix.brain_line,
-              ),
-              tooltip: 'AI Checker',
-            ),
-            IconButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != Routes.input) {
-                  Navigator.of(context).push(createRoute(route: Routes.input));
-                }
-              },
-              icon: const Icon(
-                Remix.file_warning_line,
-              ),
-              tooltip: 'Plagiarism Checker',
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: APAppBarBottom(document: widget.document),
       resizeToAvoidBottomInset: false,
     );
   }
