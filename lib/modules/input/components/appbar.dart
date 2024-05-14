@@ -1,9 +1,12 @@
-import 'package:aiproof/modules/input/components/overlay.dart';
+import 'dart:convert';
+
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:remixicon/remixicon.dart';
+import 'package:http/http.dart' as http;
 
 class APAppBarBottom extends StatefulWidget {
   final DocumentModel? document;
@@ -14,10 +17,42 @@ class APAppBarBottom extends StatefulWidget {
 }
 
 class _APAppBarBottomState extends State<APAppBarBottom> {
-  final _overlayController = OverlayPortalController();
+  var _overlayController = OverlayPortalController();
+
+  Future<void> fetchRandomUsers() async {
+    Logger logger = Logger();
+    logger.i('fetching...');
+
+    // fetch random users
+    String url = 'https://ai-content-detector-ai-gpt.p.rapidapi.com/api/detectText/';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'content-type': 'application/json',
+        'Content-Type': 'application/json',
+        'X-RapidAPI-Key': '3ecb75fe1emsh667a07ab24e7067p13d983jsn557e27463e07',
+        'X-RapidAPI-Host': 'ai-content-detector-ai-gpt.p.rapidapi.com',
+      },
+      body: jsonEncode(<String, String>{
+        'text': widget.document?.content as String,
+      }),
+    );
+
+    final responseData = jsonDecode(response.body);
+
+    logger.i(responseData);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget _overlay() {
+      return Container(
+        child: const Center(
+          child: Text("nigga"),
+        ),
+      );
+    }
+
     return Stack(
       children: [
         BottomAppBar(
@@ -50,10 +85,7 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
         OverlayPortal(
           controller: _overlayController,
           overlayChildBuilder: (BuildContext context) {
-            return AICheckerOverlay(
-              overlayController: _overlayController,
-              document: widget.document,
-            );
+            return _overlay();
           },
         ),
       ],
