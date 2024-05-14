@@ -13,6 +13,7 @@ class DatabaseServices {
   static const columnTitle = 'title';
   static const columnContent = 'content';
   static const columnCreatedAt = 'createdAt';
+  static const thumbnail = 'thumbnail';
 
   DatabaseServices._internal();
   static final DatabaseServices instance = DatabaseServices._internal();
@@ -37,7 +38,8 @@ class DatabaseServices {
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
             $columnTitle TEXT NOT NULL,
             $columnContent TEXT NOT NULL,
-            $columnCreatedAt TEXT NOT NULL
+            $columnCreatedAt TEXT NOT NULL,
+            $thumbnail BLOB
           )
           ''');
   }
@@ -112,5 +114,12 @@ class DatabaseServices {
       log.e('Failed to close database: $e');
       rethrow;
     }
+  }
+
+  Future<void> dropDatabase(String dbName) async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, dbName);
+    await deleteDatabase(path);
+    log.d('Database $dbName dropped successfully');
   }
 }

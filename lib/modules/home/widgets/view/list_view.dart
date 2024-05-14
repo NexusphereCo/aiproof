@@ -3,6 +3,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/modules/home/widgets/components/empty_docs_state.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,15 +61,17 @@ class APListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-      itemCount: documents.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsetsDirectional.only(bottom: Spacing.md),
-          child: _card(documents[index], context),
-        );
-      },
-    );
+    return (documents.isNotEmpty)
+        ? ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+            itemCount: documents.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsetsDirectional.only(bottom: Spacing.md),
+                child: _card(documents[index], context),
+              );
+            },
+          )
+        : const EmptyDocsState();
   }
 }

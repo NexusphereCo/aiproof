@@ -2,6 +2,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/modules/home/widgets/components/empty_docs_state.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -61,17 +62,19 @@ class APGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: documents.length,
-      itemBuilder: (context, index) {
-        return _card(documents[index], context);
-      },
-    );
+    return (documents.isNotEmpty)
+        ? GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: documents.length,
+            itemBuilder: (context, index) {
+              return _card(documents[index], context);
+            },
+          )
+        : const EmptyDocsState();
   }
 }

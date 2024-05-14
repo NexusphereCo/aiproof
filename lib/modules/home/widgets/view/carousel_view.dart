@@ -2,6 +2,7 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/modules/home/widgets/components/empty_docs_state.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -66,19 +67,22 @@ class APCarouselView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-            autoPlay: false,
-            aspectRatio: 1,
-            enlargeCenterPage: true,
-            enableInfiniteScroll: false,
-          ),
-          items: documents.map((document) => _card(document, context)).toList(),
-        ),
-      ],
-    );
+    return (documents.isNotEmpty)
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: false,
+                  aspectRatio: 1,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                ),
+                items: documents.map((document) => _card(document, context)).toList(),
+              )
+            ],
+          )
+        : const EmptyDocsState();
   }
 }

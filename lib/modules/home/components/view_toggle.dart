@@ -47,12 +47,16 @@ class _ViewToggleState extends State<ViewToggle> {
       builder: (context, state) {
         int docLength;
 
-        if (state is LoadedDocumentState) {
-          docLength = state.documents.length;
-        } else if (state is FilteredDocument) {
-          docLength = state.documents.length;
-        } else {
-          docLength = 0; // Default value when no documents are loaded
+        switch (state.runtimeType) {
+          case const (LoadedDocumentState):
+            docLength = (state as LoadedDocumentState).documents.length;
+            break;
+          case const (FilteredDocument):
+            docLength = (state as FilteredDocument).documents.length;
+            break;
+          default:
+            docLength = 0;
+            break;
         }
         String itemText = docLength <= 1 ? "item" : "items";
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -223,17 +224,15 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   Future<void> _scanImage() async {
     if (_cameraController == null) return;
 
-    final navigator = Navigator.of(context);
-
     try {
       final pictureFile = await _cameraController!.takePicture();
 
       final file = File(pictureFile.path);
-
       final inputImage = InputImage.fromFile(file);
       final recognizedText = await textRecognizer.processImage(inputImage);
+      final scannedDoc = DocumentModel(title: "Untitled", content: recognizedText.text, createdAt: DateTime.now());
 
-      await Navigator.of(context).push(createRoute(route: Routes.input, args: recognizedText.text));
+      await Navigator.of(context).push(createRoute(route: Routes.input, args: scannedDoc));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

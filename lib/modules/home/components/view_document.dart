@@ -2,9 +2,9 @@ import 'package:aiproof/bloc/document_view/document_view_bloc.dart';
 import 'package:aiproof/bloc/document/document_bloc.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/modules/home/enums/doc_view.dart';
-import 'package:aiproof/modules/home/widgets/carousel/carousel_view.dart';
-import 'package:aiproof/modules/home/widgets/grid/grid_view.dart';
-import 'package:aiproof/modules/home/widgets/list/list_view.dart';
+import 'package:aiproof/modules/home/widgets/view/carousel_view.dart';
+import 'package:aiproof/modules/home/widgets/view/grid_view.dart';
+import 'package:aiproof/modules/home/widgets/view/list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -25,7 +25,7 @@ class _ViewDocumentState extends State<ViewDocument> {
         return BlocBuilder<DocViewBloc, DocViewState>(
           builder: (context, viewState) {
             return Container(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
               child: () {
                 if (state is LoadedDocumentState) {

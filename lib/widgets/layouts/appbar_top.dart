@@ -1,7 +1,6 @@
 import 'package:aiproof/bloc/appbar/appbar_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
-import 'package:aiproof/constants/theme.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +32,7 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              onBackPressed?.call();
+              onBackPressed.call();
               Navigator.of(context).pop();
             },
             icon: const Icon(Remix.arrow_left_s_line),
@@ -42,7 +41,7 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (state is EditingState)
               InkWell(
                 onTap: () {
-                  onDonePressed?.call();
+                  onDonePressed.call();
                   titleFocusNode.unfocus();
                   contentFocusNode.unfocus();
                   context.read<AppBarBloc>().add(FocusChangedEvent(false));
@@ -67,5 +66,5 @@ class APAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56);
+  Size get preferredSize => const Size.fromHeight(56);
 }
