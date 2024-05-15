@@ -84,17 +84,39 @@ class _EditDocumentState extends State<EditDocument> {
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-          child: Form(
-            child: Column(
-              children: [
-                TextField(
-                  controller: titleController,
-                  focusNode: titleFocusNode,
+        child: Form(
+          child: Column(
+            children: [
+              TextField(
+                controller: titleController,
+                focusNode: titleFocusNode,
+                style: TextStyle(
+                  fontWeight: APFontWeight.regular,
+                  fontSize: APFontSize.h1,
+                  fontFamily: APTypography.fontFamily,
+                  color: APColor.dark,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: 'Title',
+                  counterText: '',
+                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
+                ),
+                minLines: 1,
+                maxLines: 3,
+                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                maxLength: 255,
+              ),
+              RepaintBoundary(
+                key: globalKey,
+                child: TextField(
+                  controller: contentController,
+                  focusNode: contentFocusNode,
                   style: TextStyle(
                     fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.h1,
+                    fontSize: APFontSize.normal,
                     fontFamily: APTypography.fontFamily,
                     color: APColor.dark,
                   ),
@@ -102,41 +124,16 @@ class _EditDocumentState extends State<EditDocument> {
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    hintText: 'Title',
+                    hintText: 'Write something here...',
                     counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
                   ),
-                  minLines: 1,
-                  maxLines: 3,
+                  maxLength: 8000,
                   maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLength: 255,
+                  maxLines: null,
                 ),
-                RepaintBoundary(
-                  key: globalKey,
-                  child: TextField(
-                    controller: contentController,
-                    focusNode: contentFocusNode,
-                    style: TextStyle(
-                      fontWeight: APFontWeight.regular,
-                      fontSize: APFontSize.normal,
-                      fontFamily: APTypography.fontFamily,
-                      color: APColor.dark,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Write something here...',
-                      counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    ),
-                    maxLength: 8000,
-                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    maxLines: null,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

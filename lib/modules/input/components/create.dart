@@ -122,7 +122,7 @@ class _CreateDocumentState extends State<CreateDocument> {
                     focusedBorder: InputBorder.none,
                     hintText: 'Write something here...',
                     counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
+                    contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
                   ),
                   maxLength: 8000,
                   maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,

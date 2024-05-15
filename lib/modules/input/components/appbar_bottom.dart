@@ -1,6 +1,7 @@
 import 'package:aiproof/modules/input/components/ai_overlay.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/modules/input/components/plagiarism_overlay.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
@@ -14,7 +15,8 @@ class APAppBarBottom extends StatefulWidget {
 }
 
 class _APAppBarBottomState extends State<APAppBarBottom> {
-  final _overlayController = OverlayPortalController();
+  final _aiController = OverlayPortalController();
+  final _plagiarismController = OverlayPortalController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +37,12 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
                 tooltip: 'Scan Document',
               ),
               IconButton(
-                onPressed: _overlayController.toggle,
+                onPressed: _aiController.toggle,
                 icon: const Icon(Remix.brain_line),
                 tooltip: 'AI Checker',
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: _plagiarismController.toggle,
                 icon: const Icon(Remix.file_warning_line),
                 tooltip: 'Plagiarism Checker',
               ),
@@ -48,10 +50,19 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
           ),
         ),
         OverlayPortal(
-          controller: _overlayController,
+          controller: _plagiarismController,
+          overlayChildBuilder: (BuildContext context) {
+            return PlagiarismOverlay(
+              overlayController: _plagiarismController,
+              document: widget.document,
+            );
+          },
+        ),
+        OverlayPortal(
+          controller: _aiController,
           overlayChildBuilder: (BuildContext context) {
             return AICheckerOverlay(
-              overlayController: _overlayController,
+              overlayController: _aiController,
               document: widget.document,
             );
           },

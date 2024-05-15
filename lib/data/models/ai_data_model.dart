@@ -1,4 +1,4 @@
-class AiResponseModel {
+class AiDataModel {
   final List<String> aiSentences;
   final int aiWords;
   final double fakePercentage;
@@ -7,7 +7,7 @@ class AiResponseModel {
   final bool status;
   final int textWords;
 
-  AiResponseModel({
+  AiDataModel({
     required this.aiSentences,
     required this.aiWords,
     required this.fakePercentage,
@@ -17,8 +17,8 @@ class AiResponseModel {
     required this.textWords,
   });
 
-  factory AiResponseModel.fromJson(Map<String, dynamic> json) {
-    return AiResponseModel(
+  factory AiDataModel.fromJson(Map<String, dynamic> json) {
+    return AiDataModel(
       aiSentences: List<String>.from(json['aiSentences']),
       aiWords: json['aiWords'],
       fakePercentage: json['fakePercentage'],
