@@ -21,7 +21,7 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
     return Stack(
       children: [
         BottomAppBar(
-          color: APColor.light,
+          color: APColor.primary.withOpacity(0.2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

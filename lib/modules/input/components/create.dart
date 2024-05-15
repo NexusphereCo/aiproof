@@ -10,6 +10,7 @@ import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class CreateDocument extends StatefulWidget {
   final DocumentModel? document;
@@ -24,6 +25,7 @@ class _CreateDocumentState extends State<CreateDocument> {
   final titleFocusNode = FocusNode();
   final contentFocusNode = FocusNode();
   final GlobalKey globalKey = GlobalKey();
+  Logger log = Logger();
 
   final titleController = TextEditingController(text: 'Untitled Document');
   final contentController = TextEditingController();
@@ -67,7 +69,9 @@ class _CreateDocumentState extends State<CreateDocument> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: APAppBar(
-        onDonePressed: () {},
+        onDonePressed: () async {
+          await saveDocument();
+        },
         onDeletePressed: () {
           context.read<DocumentBloc>().add(DeleteDocumentEvent(widget.document?.id as int));
           Navigator.pop(context);
@@ -81,57 +85,54 @@ class _CreateDocumentState extends State<CreateDocument> {
       body: SingleChildScrollView(
         child: RepaintBoundary(
           key: globalKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-            child: Form(
-              child: Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    focusNode: titleFocusNode,
-                    style: TextStyle(
-                      fontWeight: APFontWeight.regular,
-                      fontSize: APFontSize.h1,
-                      fontFamily: APTypography.fontFamily,
-                      color: APColor.dark,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Title',
-                      counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    ),
-                    autofocus: true,
-                    minLines: 1,
-                    maxLines: 3,
-                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    maxLength: 255,
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.h1,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
                   ),
-                  TextField(
-                    controller: contentController,
-                    focusNode: contentFocusNode,
-                    style: TextStyle(
-                      fontWeight: APFontWeight.regular,
-                      fontSize: APFontSize.normal,
-                      fontFamily: APTypography.fontFamily,
-                      color: APColor.dark,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Write something here...',
-                      counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    ),
-                    maxLength: 8000,
-                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    maxLines: null,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Title',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
                   ),
-                ],
-              ),
+                  autofocus: true,
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLength: 255,
+                ),
+                TextField(
+                  controller: contentController,
+                  focusNode: contentFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.normal,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Write something here...',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
+                  ),
+                  maxLength: 8000,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLines: null,
+                ),
+              ],
             ),
           ),
         ),
