@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
-import 'package:aiproof/data/models/ai_data_model.dart';
+import 'package:aiproof/data/models/ai_response_model.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/widgets/common/buttons.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class AICheckerOverlay extends StatelessWidget {
     required this.overlayController,
   });
 
-  Future<AiDataModel> fetchResponse() async {
+  Future<AiResponseModel> fetchRandomUsers() async {
     Logger logger = Logger();
 
     logger.i('fetching...');
@@ -32,7 +32,7 @@ class AICheckerOverlay extends StatelessWidget {
       headers: <String, String>{
         'content-type': 'application/json',
         'Content-Type': 'application/json',
-        'X-RapidAPI-Key': '659509b188msh35cbbc9a10163cdp170784jsnb5f10a363912',
+        'X-RapidAPI-Key': '3ecb75fe1emsh667a07ab24e7067p13d983jsn557e27463e07',
         'X-RapidAPI-Host': 'ai-content-detector-ai-gpt.p.rapidapi.com',
       },
       body: jsonEncode(
@@ -42,7 +42,7 @@ class AICheckerOverlay extends StatelessWidget {
       ),
     );
 
-    final responseData = AiDataModel.fromJson(jsonDecode(response.body));
+    final responseData = AiResponseModel.fromJson(jsonDecode(response.body));
     logger.i(responseData.fakePercentage);
 
     return responseData;
@@ -57,9 +57,9 @@ class AICheckerOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<AiDataModel>(
-      future: fetchResponse(),
-      builder: (BuildContext context, AsyncSnapshot<AiDataModel> snapshot) {
+    return FutureBuilder<AiResponseModel>(
+      future: fetchRandomUsers(),
+      builder: (BuildContext context, AsyncSnapshot<AiResponseModel> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -67,7 +67,7 @@ class AICheckerOverlay extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}'); // show error message if error occurred
         } else {
-          AiDataModel? data = snapshot.data;
+          AiResponseModel? data = snapshot.data;
           return Container(
             width: double.infinity,
             height: double.infinity,
@@ -104,7 +104,7 @@ class AICheckerOverlay extends StatelessWidget {
                         );
                       },
                       series: <CircularSeries>[
-                        RadialBarSeries<AiDataModel?, String>(
+                        RadialBarSeries<AiResponseModel?, String>(
                           dataSource: [data],
                           xValueMapper: (data, _) => "AI Generated",
                           yValueMapper: (data, _) => data?.fakePercentage,
