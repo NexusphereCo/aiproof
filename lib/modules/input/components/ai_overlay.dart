@@ -15,9 +15,7 @@ class AICheckerOverlay extends StatelessWidget {
   final String content;
   final OverlayPortalController overlayController;
 
-  late String verdict;
-
-  AICheckerOverlay({
+  const AICheckerOverlay({
     super.key,
     required this.content,
     required this.overlayController,
@@ -33,7 +31,7 @@ class AICheckerOverlay extends StatelessWidget {
       headers: <String, String>{
         'content-type': 'application/json',
         'Content-Type': 'application/json',
-        'X-RapidAPI-Key': 'f7aef41661mshde44967285c37a1p1082a0jsn62312c66642f',
+        'X-RapidAPI-Key': '659509b188msh35cbbc9a10163cdp170784jsnb5f10a363912',
         'X-RapidAPI-Host': 'ai-content-detector-ai-gpt.p.rapidapi.com',
       },
       body: jsonEncode(
@@ -43,25 +41,10 @@ class AICheckerOverlay extends StatelessWidget {
       ),
     );
 
-    final AiDataModel responseData = AiDataModel.fromJson(jsonDecode(response.body));
-    verdict = determineVerdict(responseData);
+    final responseData = AiDataModel.fromJson(jsonDecode(response.body));
     logger.i(responseData.fakePercentage);
 
     return responseData;
-  }
-
-  String determineVerdict(AiDataModel response) {
-    if (response.fakePercentage >= 90) {
-      return 'We are highly confident this text was AI generated.';
-    } else if (response.fakePercentage >= 80 && response.fakePercentage < 90) {
-      return 'We are confident this text was AI generated.';
-    } else if (response.fakePercentage >= 60 && response.fakePercentage < 80) {
-      return 'This text is somewhat likely AI generated.';
-    } else if (response.fakePercentage >= 30 && response.fakePercentage < 60) {
-      return 'This text is somewhat likely written by a human.';
-    } else {
-      return 'This text is written by a human.';
-    }
   }
 
   double degreeToRadian(int deg) => deg * (3.141592653589793 / 180);
@@ -138,13 +121,13 @@ class AICheckerOverlay extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        APTypography.h1("${data.fakePercentage}%", fontSize: 32),
+                        APTypography.h1("${data.fakePercentage}%"),
                         APTypography.label("AI Generated"),
                       ],
                     ),
                     Positioned(
                       bottom: 8,
-                      child: APTypography.base(verdict),
+                      child: APTypography.label("AI GENERATED"),
                     )
                   ],
                 ),

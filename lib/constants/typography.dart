@@ -77,17 +77,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget h1(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.h1,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
+  static Widget h1(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h1, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
   /// Creates a heading 2 text widget with the specified [text] and optional styling properties.
   ///
@@ -97,17 +87,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget h2(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.h2,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
+  static Widget h2(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h2, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
   /// Creates a heading 3 text widget with the specified [text] and optional styling properties.
   ///
@@ -117,17 +97,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget h3(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.h3,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
+  static Widget h3(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h3, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
   /// Creates a heading 4 text widget with the specified [text] and optional styling properties.
   ///
@@ -137,17 +107,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget h4(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.h4,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
+  static Widget h4(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.h4, color, muted, fontWeight ?? APFontWeight.extraBold, textAlign, maxLines, cutOverflow);
 
   /// Creates a normal text widget with the specified [text] and optional styling properties.
   ///
@@ -157,17 +117,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget base(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.normal,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
+  static Widget base(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.normal, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
 
   /// Creates a label text widget with the specified [text] and optional styling properties.
   ///
@@ -177,17 +127,7 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget label(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.label,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.semiBold, textAlign, maxLines, cutOverflow);
+  static Widget label(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.label, color, muted, fontWeight ?? APFontWeight.semiBold, textAlign, maxLines, cutOverflow);
 
   /// Creates a small text widget with the specified [text] and optional styling properties.
   ///
@@ -197,15 +137,5 @@ class APTypography {
   /// The [textAlign] parameter sets the alignment of the text.
   /// The [maxLines] parameter limits the number of lines the text can occupy.
   /// The [cutOverflow] parameter determines if the text should be cut off when it overflows.
-  static Widget small(
-    String text, {
-    Color? color,
-    FontWeight? fontWeight,
-    double fontSize = APFontSize.small,
-    bool muted = false,
-    TextAlign? textAlign,
-    int? maxLines,
-    bool? cutOverflow,
-  }) =>
-      _textStyle(text, fontSize, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
+  static Widget small(String text, {Color? color, FontWeight? fontWeight, bool muted = false, TextAlign? textAlign, int? maxLines, bool? cutOverflow}) => _textStyle(text, APFontSize.small, color, muted, fontWeight ?? APFontWeight.regular, textAlign, maxLines, cutOverflow);
 }
