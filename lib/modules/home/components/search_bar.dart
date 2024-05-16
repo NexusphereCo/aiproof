@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class APSearchBar extends StatefulWidget {
-  const APSearchBar({super.key});
+  final FocusNode focusNode;
+  const APSearchBar({super.key, required this.focusNode});
 
   @override
   _APSearchBarState createState() => _APSearchBarState();
@@ -30,6 +31,7 @@ class _APSearchBarState extends State<APSearchBar> {
         const SizedBox(height: Spacing.sm),
         TextField(
           controller: _searchController,
+          focusNode: widget.focusNode,
           decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
