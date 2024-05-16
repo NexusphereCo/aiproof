@@ -10,10 +10,11 @@ import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 
 class CreateDocument extends StatefulWidget {
-  const CreateDocument({super.key});
+  final DocumentModel? document;
+
+  const CreateDocument({super.key, required this.document});
 
   @override
   State<CreateDocument> createState() => _CreateDocumentState();
@@ -23,9 +24,9 @@ class _CreateDocumentState extends State<CreateDocument> {
   final titleFocusNode = FocusNode();
   final contentFocusNode = FocusNode();
   final GlobalKey globalKey = GlobalKey();
+
   final titleController = TextEditingController(text: 'Untitled Document');
   final contentController = TextEditingController();
-  Logger log = Logger();
 
   @override
   void initState() {
@@ -57,7 +58,6 @@ class _CreateDocumentState extends State<CreateDocument> {
       createdAt: DateTime.now(),
       thumbnail: thumbnail,
     );
-    log.i(document.content);
 
     context.read<DocumentBloc>().add(CreateDocumentEvent(document));
     titleController.text = title;
@@ -65,20 +65,16 @@ class _CreateDocumentState extends State<CreateDocument> {
 
   @override
   Widget build(BuildContext context) {
-    DocumentModel? document = ModalRoute.of(context)?.settings.arguments as DocumentModel?;
-
     return Scaffold(
       appBar: APAppBar(
-        onDonePressed: () async {
-          await saveDocument();
-        },
+        onDonePressed: () async {},
         onDeletePressed: () {
-          if (document != null) {
-            context.read<DocumentBloc>().add(DeleteDocumentEvent(document?.id as int));
-          }
+          context.read<DocumentBloc>().add(DeleteDocumentEvent(widget.document?.id as int));
           Navigator.pop(context);
         },
-        onBackPressed: () async {},
+        onBackPressed: () async {
+          await saveDocument();
+        },
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
       ),
@@ -142,14 +138,7 @@ class _CreateDocumentState extends State<CreateDocument> {
           ),
         ),
       ),
-      bottomNavigationBar: APAppBarBottom(
-        onDocumentScanned: (scannedDoc) {
-          setState(() {
-            contentController.text = scannedDoc.content;
-          });
-        },
-        document: document,
-      ),
+      bottomNavigationBar: const APAppBarBottom(),
       resizeToAvoidBottomInset: false,
     );
   }

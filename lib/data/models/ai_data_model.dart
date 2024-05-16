@@ -12,7 +12,7 @@ class AiDataModel {
     required this.aiWords,
     required this.fakePercentage,
     required this.isHuman,
-    required this.otherFeedback,
+    this.otherFeedback,
     required this.status,
     required this.textWords,
   });

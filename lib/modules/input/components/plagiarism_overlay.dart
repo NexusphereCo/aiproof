@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
+import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/data/models/plagiarisim_data_model.dart';
 import 'package:aiproof/widgets/common/buttons.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,12 @@ import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 
 class PlagiarismOverlay extends StatelessWidget {
-  final String content;
+  final DocumentModel? document;
   final OverlayPortalController overlayController;
 
   const PlagiarismOverlay({
     super.key,
-    required this.content,
+    this.document,
     required this.overlayController,
   });
 
@@ -36,7 +37,7 @@ class PlagiarismOverlay extends StatelessWidget {
         },
         body: jsonEncode(
           <String, dynamic>{
-            'text': content,
+            'text': document!.content.toString(),
             "language": "en",
             "includeCitations": false,
             "scrapeSources": false,

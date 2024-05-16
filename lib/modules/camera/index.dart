@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:aiproof/data/models/document_model.dart';
+import 'package:aiproof/utils/routes.dart';
 import 'package:camera/camera.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:flutter/material.dart';
@@ -210,9 +211,9 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
       final file = File(pictureFile.path);
       final inputImage = InputImage.fromFile(file);
       final recognizedText = await textRecognizer.processImage(inputImage);
-      final scannedDoc = recognizedText.text;
+      final scannedDoc = DocumentModel(title: 'Untitled', content: recognizedText.text, createdAt: DateTime.now());
 
-      Navigator.of(context).pop(scannedDoc);
+      await Navigator.of(context).pushReplacement(createRoute(route: Routes.input, args: scannedDoc));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
