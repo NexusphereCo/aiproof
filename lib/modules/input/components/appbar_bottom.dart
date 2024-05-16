@@ -1,4 +1,4 @@
-import 'package:aiproof/modules/input/components/ai_overlay.dart';
+import 'package:aiproof/modules/input/components/overlay.dart';
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/utils/routes.dart';
