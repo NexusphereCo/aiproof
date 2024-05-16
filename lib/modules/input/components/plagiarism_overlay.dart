@@ -30,8 +30,7 @@ class PlagiarismOverlay extends StatelessWidget {
         Uri.parse(url),
         headers: <String, String>{
           'content-type': 'application/json',
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Key': '659509b188msh35cbbc9a10163cdp170784jsnb5f10a363912',
+          'X-RapidAPI-Key': 'f7aef41661mshde44967285c37a1p1082a0jsn62312c66642f',
           'X-RapidAPI-Host': 'plagiarism-checker-and-auto-citation-generator-multi-lingual.p.rapidapi.com',
         },
         body: jsonEncode(
@@ -128,20 +127,10 @@ class PlagiarismOverlay extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        APTypography.h1("${data?.percentPlagiarism}%"),
+                        APTypography.h1("${data?.percentPlagiarism}%", fontSize: 32),
                         APTypography.label("Plagiarized"),
                       ],
                     ),
-                    // Positioned(
-                    //   bottom: 8,
-                    //   child: Column(
-                    //     children: [
-                    //       APTypography.label("Citations:"),
-                    //       const SizedBox(height: 4),
-                    //       APTypography.label(data?.citations?.length.toString() ?? "No citations found"),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
                 const SizedBox(height: Spacing.xxxl),
