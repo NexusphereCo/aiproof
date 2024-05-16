@@ -41,14 +41,21 @@ class APCarouselView extends StatelessWidget {
                 right: 0.0,
                 child: Container(
                   height: 90,
-                  color: APColor.light,
                   padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: APColor.light,
+                    border: Border(
+                      top: BorderSide(
+                        color: APColor.primary.withOpacity(0.1),
+                      ),
+                    ),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: APTypography.h2(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
                       ),
                       // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),

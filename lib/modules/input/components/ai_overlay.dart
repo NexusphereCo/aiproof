@@ -107,7 +107,7 @@ class AICheckerOverlay extends StatelessWidget {
                         RadialBarSeries<AiDataModel?, String>(
                           dataSource: [data],
                           xValueMapper: (data, _) => "AI Generated",
-                          yValueMapper: (data, _) => data?.fakePercentage,
+                          yValueMapper: (data, _) => data?.fakePercentage as double,
                           maximumValue: 100,
                           trackColor: APColor.light[100]!,
                           cornerStyle: CornerStyle.bothCurve,

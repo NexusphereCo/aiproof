@@ -84,39 +84,19 @@ class _EditDocumentState extends State<EditDocument> {
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: Form(
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                focusNode: titleFocusNode,
-                style: TextStyle(
-                  fontWeight: APFontWeight.regular,
-                  fontSize: APFontSize.h1,
-                  fontFamily: APTypography.fontFamily,
-                  color: APColor.dark,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Title',
-                  counterText: '',
-                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
-                ),
-                minLines: 1,
-                maxLines: 3,
-                maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                maxLength: 255,
-              ),
-              RepaintBoundary(
-                key: globalKey,
-                child: TextField(
-                  controller: contentController,
-                  focusNode: contentFocusNode,
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
                   style: TextStyle(
                     fontWeight: APFontWeight.regular,
-                    fontSize: APFontSize.normal,
+                    fontSize: APFontSize.h1,
                     fontFamily: APTypography.fontFamily,
                     color: APColor.dark,
                   ),
@@ -124,16 +104,41 @@ class _EditDocumentState extends State<EditDocument> {
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    hintText: 'Write something here...',
+                    hintText: 'Title',
                     counterText: '',
-                    contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
                   ),
-                  maxLength: 8000,
+                  minLines: 1,
+                  maxLines: 3,
                   maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                  maxLines: null,
+                  maxLength: 255,
                 ),
-              ),
-            ],
+                RepaintBoundary(
+                  key: globalKey,
+                  child: TextField(
+                    controller: contentController,
+                    focusNode: contentFocusNode,
+                    style: TextStyle(
+                      fontWeight: APFontWeight.regular,
+                      fontSize: APFontSize.normal,
+                      fontFamily: APTypography.fontFamily,
+                      color: APColor.dark,
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Write something here...',
+                      counterText: '',
+                      contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
+                    ),
+                    maxLength: 8000,
+                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    maxLines: null,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

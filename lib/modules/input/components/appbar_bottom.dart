@@ -30,7 +30,7 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
               IconButton(
                 onPressed: () {
                   if (ModalRoute.of(context)?.settings.name != Routes.home) {
-                    Navigator.of(context).push(createRoute(route: Routes.camera));
+                    Navigator.of(context).pushReplacement(createRoute(route: Routes.camera));
                   }
                 },
                 icon: const Icon(Remix.camera_2_line),
