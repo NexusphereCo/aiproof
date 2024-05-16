@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Remix.add_line),
         onPressed: () {
           Navigator.of(context).push(
-            createRoute(route: Routes.input),
+            createRoute(route: Routes.create),
           );
         },
       ),

@@ -17,7 +17,7 @@ class APCarouselView extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
-          createRoute(route: Routes.input, args: document),
+          createRoute(route: Routes.edit, args: document),
         );
       },
       child: Container(

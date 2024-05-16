@@ -6,24 +6,22 @@ import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/modules/input/components/appbar_bottom.dart';
 import 'package:aiproof/modules/input/utils/capture_png.dart';
-import 'package:aiproof/utils/routes.dart';
 import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remixicon/remixicon.dart';
 
 class EditDocument extends StatefulWidget {
-  final DocumentModel document;
-
-  const EditDocument({super.key, required this.document});
+  const EditDocument({super.key});
 
   @override
   State<EditDocument> createState() => _EditDocumentState();
 }
 
 class _EditDocumentState extends State<EditDocument> {
-  late TextEditingController titleController, contentController;
+  late DocumentModel document;
+  late TextEditingController titleController;
+  late TextEditingController contentController;
   final titleFocusNode = FocusNode();
   final contentFocusNode = FocusNode();
   final GlobalKey globalKey = GlobalKey();
@@ -31,10 +29,18 @@ class _EditDocumentState extends State<EditDocument> {
   @override
   void initState() {
     super.initState();
+    titleController = TextEditingController();
+    contentController = TextEditingController();
     titleFocusNode.addListener(_handleFocusChange);
     contentFocusNode.addListener(_handleFocusChange);
-    titleController = TextEditingController(text: widget.document.title.isNotEmpty ? widget.document.title : 'Untitled Document');
-    contentController = TextEditingController(text: widget.document.content);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    document = ModalRoute.of(context)?.settings.arguments as DocumentModel;
+    titleController.text = document.title.isNotEmpty ? document.title : 'Untitled Document';
+    contentController.text = document.content;
   }
 
   @override
@@ -43,6 +49,8 @@ class _EditDocumentState extends State<EditDocument> {
     contentFocusNode.removeListener(_handleFocusChange);
     titleFocusNode.dispose();
     contentFocusNode.dispose();
+    titleController.dispose();
+    contentController.dispose();
     super.dispose();
   }
 
@@ -55,15 +63,14 @@ class _EditDocumentState extends State<EditDocument> {
     final title = titleController.text.isNotEmpty ? titleController.text : 'Untitled Document';
     final thumbnail = await capturePng(globalKey);
     final updatedDocument = DocumentModel(
-      id: widget.document.id,
+      id: document.id,
       title: title,
       content: contentController.text,
-      createdAt: (widget.document.title != titleController.text || widget.document.content != contentController.text) ? DateTime.now() : widget.document.createdAt,
+      createdAt: (document.title != titleController.text || document.content != contentController.text) ? DateTime.now() : document.createdAt,
       thumbnail: thumbnail,
     );
 
     context.read<DocumentBloc>().add(UpdateDocumentEvent(updatedDocument));
-    titleController.text = title;
   }
 
   @override
@@ -72,13 +79,15 @@ class _EditDocumentState extends State<EditDocument> {
       appBar: APAppBar(
         onDonePressed: () async {
           await saveDocument();
+          Navigator.pop(context);
         },
         onDeletePressed: () {
-          context.read<DocumentBloc>().add(DeleteDocumentEvent(widget.document.id as int));
+          context.read<DocumentBloc>().add(DeleteDocumentEvent(document.id!));
           Navigator.pop(context);
         },
         onBackPressed: () async {
           await saveDocument();
+          Navigator.pop(context);
         },
         titleFocusNode: titleFocusNode,
         contentFocusNode: contentFocusNode,
@@ -142,7 +151,14 @@ class _EditDocumentState extends State<EditDocument> {
           ),
         ),
       ),
-      bottomNavigationBar: APAppBarBottom(document: widget.document),
+      bottomNavigationBar: APAppBarBottom(
+        onDocumentScanned: (scannedDoc) {
+          setState(() {
+            contentController.text = scannedDoc.content;
+          });
+        },
+        document: document,
+      ),
       resizeToAvoidBottomInset: false,
     );
   }

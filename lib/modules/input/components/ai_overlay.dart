@@ -4,7 +4,6 @@ import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/ai_data_model.dart';
-import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/widgets/common/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -13,12 +12,12 @@ import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 
 class AICheckerOverlay extends StatelessWidget {
-  final DocumentModel? document;
+  final String content;
   final OverlayPortalController overlayController;
 
   const AICheckerOverlay({
     super.key,
-    this.document,
+    required this.content,
     required this.overlayController,
   });
 
@@ -37,7 +36,7 @@ class AICheckerOverlay extends StatelessWidget {
       },
       body: jsonEncode(
         <String, String>{
-          'text': document?.content as String,
+          'text': content,
         },
       ),
     );
@@ -65,7 +64,9 @@ class AICheckerOverlay extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}'); // show error message if error occurred
+          Logger log = Logger();
+          log.e(('Error: ${snapshot.error}'));
+          return Text('Error: ${snapshot.error}');
         } else {
           AiDataModel? data = snapshot.data;
           return Container(
@@ -104,10 +105,10 @@ class AICheckerOverlay extends StatelessWidget {
                         );
                       },
                       series: <CircularSeries>[
-                        RadialBarSeries<AiDataModel?, String>(
-                          dataSource: [data],
+                        RadialBarSeries<AiDataModel, String>(
+                          dataSource: [data!],
                           xValueMapper: (data, _) => "AI Generated",
-                          yValueMapper: (data, _) => data?.fakePercentage as double,
+                          yValueMapper: (data, _) => data.fakePercentage,
                           maximumValue: 100,
                           trackColor: APColor.light[100]!,
                           cornerStyle: CornerStyle.bothCurve,
@@ -120,7 +121,7 @@ class AICheckerOverlay extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        APTypography.h1("${data?.fakePercentage}%"),
+                        APTypography.h1("${data.fakePercentage}%"),
                         APTypography.label("AI Generated"),
                       ],
                     ),
