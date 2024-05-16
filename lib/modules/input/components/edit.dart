@@ -84,36 +84,36 @@ class _EditDocumentState extends State<EditDocument> {
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: RepaintBoundary(
-          key: globalKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-            child: Form(
-              child: Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    focusNode: titleFocusNode,
-                    style: TextStyle(
-                      fontWeight: APFontWeight.regular,
-                      fontSize: APFontSize.h1,
-                      fontFamily: APTypography.fontFamily,
-                      color: APColor.dark,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Title',
-                      counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    ),
-                    minLines: 1,
-                    maxLines: 3,
-                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    maxLength: 255,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.h1,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
                   ),
-                  TextField(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Title',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
+                  ),
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLength: 255,
+                ),
+                RepaintBoundary(
+                  key: globalKey,
+                  child: TextField(
                     controller: contentController,
                     focusNode: contentFocusNode,
                     style: TextStyle(
@@ -128,14 +128,14 @@ class _EditDocumentState extends State<EditDocument> {
                       focusedBorder: InputBorder.none,
                       hintText: 'Write something here...',
                       counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                      contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
                     ),
                     maxLength: 8000,
                     maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
                     maxLines: null,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

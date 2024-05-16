@@ -4,7 +4,9 @@ import 'package:aiproof/modules/input/components/edit.dart';
 import 'package:flutter/material.dart';
 
 class InputScreen extends StatefulWidget {
-  const InputScreen({super.key});
+  final DocumentModel? document;
+
+  const InputScreen({super.key, this.document});
 
   @override
   State<InputScreen> createState() => _InputScreenState();
@@ -15,6 +17,6 @@ class _InputScreenState extends State<InputScreen> {
   Widget build(BuildContext context) {
     final DocumentModel? document = ModalRoute.of(context)?.settings.arguments as DocumentModel?;
 
-    return document == null ? CreateDocument(document: document) : EditDocument(document: document);
+    return document == null ? CreateDocument(document: widget.document) : EditDocument(document: document);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:aiproof/bloc/appbar/appbar_bloc.dart';
 import 'package:aiproof/bloc/document/document_bloc.dart';
 import 'package:aiproof/constants/colors.dart';
@@ -10,11 +12,12 @@ import 'package:aiproof/widgets/layouts/appbar_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class CreateDocument extends StatefulWidget {
   final DocumentModel? document;
 
-  const CreateDocument({super.key, required this.document});
+  const CreateDocument({super.key, this.document});
 
   @override
   State<CreateDocument> createState() => _CreateDocumentState();
@@ -24,6 +27,7 @@ class _CreateDocumentState extends State<CreateDocument> {
   final titleFocusNode = FocusNode();
   final contentFocusNode = FocusNode();
   final GlobalKey globalKey = GlobalKey();
+  Logger log = Logger();
 
   final titleController = TextEditingController(text: 'Untitled Document');
   final contentController = TextEditingController();
@@ -60,6 +64,7 @@ class _CreateDocumentState extends State<CreateDocument> {
     );
 
     context.read<DocumentBloc>().add(CreateDocumentEvent(document));
+    log.i(document.content);
     titleController.text = title;
   }
 
@@ -67,7 +72,9 @@ class _CreateDocumentState extends State<CreateDocument> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: APAppBar(
-        onDonePressed: () {},
+        onDonePressed: () async {
+          await saveDocument();
+        },
         onDeletePressed: () {
           context.read<DocumentBloc>().add(DeleteDocumentEvent(widget.document?.id as int));
           Navigator.pop(context);
@@ -79,37 +86,37 @@ class _CreateDocumentState extends State<CreateDocument> {
         contentFocusNode: contentFocusNode,
       ),
       body: SingleChildScrollView(
-        child: RepaintBoundary(
-          key: globalKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Global.paddingBody),
-            child: Form(
-              child: Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    focusNode: titleFocusNode,
-                    style: TextStyle(
-                      fontWeight: APFontWeight.regular,
-                      fontSize: APFontSize.h1,
-                      fontFamily: APTypography.fontFamily,
-                      color: APColor.dark,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Title',
-                      counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    ),
-                    autofocus: true,
-                    minLines: 1,
-                    maxLines: 3,
-                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    maxLength: 255,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Form(
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController,
+                  focusNode: titleFocusNode,
+                  style: TextStyle(
+                    fontWeight: APFontWeight.regular,
+                    fontSize: APFontSize.h1,
+                    fontFamily: APTypography.fontFamily,
+                    color: APColor.dark,
                   ),
-                  TextField(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Title',
+                    counterText: '',
+                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: Global.paddingBody),
+                  ),
+                  autofocus: true,
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                  maxLength: 255,
+                ),
+                RepaintBoundary(
+                  key: globalKey,
+                  child: TextField(
                     controller: contentController,
                     focusNode: contentFocusNode,
                     style: TextStyle(
@@ -124,14 +131,14 @@ class _CreateDocumentState extends State<CreateDocument> {
                       focusedBorder: InputBorder.none,
                       hintText: 'Write something here...',
                       counterText: '',
-                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                      contentPadding: EdgeInsets.symmetric(vertical: Global.paddingBody, horizontal: Global.paddingBody),
                     ),
                     maxLength: 8000,
                     maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
                     maxLines: null,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
