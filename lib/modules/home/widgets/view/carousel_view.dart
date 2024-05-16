@@ -3,6 +3,7 @@ import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/modules/home/widgets/components/empty_docs_state.dart';
+import 'package:aiproof/modules/input/components/edit.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,9 +17,7 @@ class APCarouselView extends StatelessWidget {
   Widget _card(DocumentModel document, BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          createRoute(route: Routes.input, args: document),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditDocument(document: document)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -41,17 +40,23 @@ class APCarouselView extends StatelessWidget {
                 right: 0.0,
                 child: Container(
                   height: 90,
-                  color: APColor.light,
                   padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: APColor.light,
+                    border: Border(
+                      top: BorderSide(
+                        color: APColor.primary.withOpacity(0.1),
+                      ),
+                    ),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: APTypography.h2(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: APTypography.h4(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
                       ),
-                      // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),
                       const SizedBox(height: Spacing.sm), // Add this line
                       APTypography.small(DateFormat('MMMM d, yyyy - h:mm a').format(document.createdAt), color: APColor.dark.withOpacity(0.5)),
                     ],

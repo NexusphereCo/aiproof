@@ -3,6 +3,7 @@ import 'package:aiproof/constants/sizes.dart';
 import 'package:aiproof/constants/typography.dart';
 import 'package:aiproof/data/models/document_model.dart';
 import 'package:aiproof/modules/home/widgets/components/empty_docs_state.dart';
+import 'package:aiproof/modules/input/components/edit.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,7 @@ class APGridView extends StatelessWidget {
   Widget _card(DocumentModel document, BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          createRoute(route: Routes.input, args: document),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditDocument(document: document)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -38,9 +37,16 @@ class APGridView extends StatelessWidget {
                 left: 0.0,
                 right: 0.0,
                 child: Container(
-                  height: 55,
-                  color: APColor.light,
-                  padding: const EdgeInsets.all(15),
+                  height: 50,
+                  padding: const EdgeInsets.all(11),
+                  decoration: BoxDecoration(
+                    color: APColor.light,
+                    border: Border(
+                      top: BorderSide(
+                        color: APColor.primary.withOpacity(0.1),
+                      ),
+                    ),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -213,7 +213,7 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
       final recognizedText = await textRecognizer.processImage(inputImage);
       final scannedDoc = DocumentModel(title: 'Untitled', content: recognizedText.text, createdAt: DateTime.now());
 
-      await Navigator.of(context).push(createRoute(route: Routes.input, args: scannedDoc));
+      Navigator.of(context).pop(scannedDoc);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

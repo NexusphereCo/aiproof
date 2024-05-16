@@ -35,7 +35,7 @@ class DatabaseServices {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnId INTEGER PRIMARY KEY,
             $columnTitle TEXT NOT NULL,
             $columnContent TEXT NOT NULL,
             $columnCreatedAt TEXT NOT NULL,
@@ -48,7 +48,9 @@ class DatabaseServices {
     try {
       Database db = await instance.database;
       log.d('Inserting document: ${document.toMap()}');
-      return await db.insert(table, document.toMap());
+      int id = await db.insert(table, document.toMap());
+      log.d('Inserted document id: $id');
+      return id;
     } catch (e) {
       log.e('Failed to insert document: $e');
       rethrow;
