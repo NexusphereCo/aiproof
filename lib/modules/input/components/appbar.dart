@@ -1,10 +1,12 @@
-import 'package:aiproof/modules/input/components/ai_overlay.dart';
+import 'dart:convert';
+
 import 'package:aiproof/constants/colors.dart';
 import 'package:aiproof/data/models/document_model.dart';
-import 'package:aiproof/modules/input/components/plagiarism_overlay.dart';
 import 'package:aiproof/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:remixicon/remixicon.dart';
+import 'package:http/http.dart' as http;
 
 class APAppBarBottom extends StatefulWidget {
   final DocumentModel? document;
@@ -15,15 +17,46 @@ class APAppBarBottom extends StatefulWidget {
 }
 
 class _APAppBarBottomState extends State<APAppBarBottom> {
-  final _aiController = OverlayPortalController();
-  final _plagiarismController = OverlayPortalController();
+  var _overlayController = OverlayPortalController();
+
+  Future<void> fetchRandomUsers() async {
+    Logger logger = Logger();
+    logger.i('fetching...');
+
+    // fetch random users
+    String url = 'https://ai-content-detector-ai-gpt.p.rapidapi.com/api/detectText/';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'content-type': 'application/json',
+        'Content-Type': 'application/json',
+        'X-RapidAPI-Key': '3ecb75fe1emsh667a07ab24e7067p13d983jsn557e27463e07',
+        'X-RapidAPI-Host': 'ai-content-detector-ai-gpt.p.rapidapi.com',
+      },
+      body: jsonEncode(<String, String>{
+        'text': widget.document?.content as String,
+      }),
+    );
+
+    final responseData = jsonDecode(response.body);
+
+    logger.i(responseData);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget _overlay() {
+      return Container(
+        child: const Center(
+          child: Text("nigga"),
+        ),
+      );
+    }
+
     return Stack(
       children: [
         BottomAppBar(
-          color: APColor.primary.withOpacity(0.2),
+          color: APColor.light,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -37,12 +70,12 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
                 tooltip: 'Scan Document',
               ),
               IconButton(
-                onPressed: _aiController.toggle,
+                onPressed: _overlayController.toggle,
                 icon: const Icon(Remix.brain_line),
                 tooltip: 'AI Checker',
               ),
               IconButton(
-                onPressed: _plagiarismController.toggle,
+                onPressed: () {},
                 icon: const Icon(Remix.file_warning_line),
                 tooltip: 'Plagiarism Checker',
               ),
@@ -50,21 +83,9 @@ class _APAppBarBottomState extends State<APAppBarBottom> {
           ),
         ),
         OverlayPortal(
-          controller: _plagiarismController,
+          controller: _overlayController,
           overlayChildBuilder: (BuildContext context) {
-            return PlagiarismOverlay(
-              overlayController: _plagiarismController,
-              document: widget.document,
-            );
-          },
-        ),
-        OverlayPortal(
-          controller: _aiController,
-          overlayChildBuilder: (BuildContext context) {
-            return AICheckerOverlay(
-              overlayController: _aiController,
-              document: widget.document,
-            );
+            return _overlay();
           },
         ),
       ],

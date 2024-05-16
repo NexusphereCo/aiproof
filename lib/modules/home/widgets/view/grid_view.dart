@@ -38,16 +38,9 @@ class APGridView extends StatelessWidget {
                 left: 0.0,
                 right: 0.0,
                 child: Container(
-                  height: 50,
-                  padding: const EdgeInsets.all(11),
-                  decoration: BoxDecoration(
-                    color: APColor.light,
-                    border: Border(
-                      top: BorderSide(
-                        color: APColor.primary.withOpacity(0.1),
-                      ),
-                    ),
-                  ),
+                  height: 55,
+                  color: APColor.light,
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

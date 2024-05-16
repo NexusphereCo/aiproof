@@ -23,52 +23,36 @@ class APListView extends StatelessWidget {
           );
         },
         child: Container(
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(APBorderRadius.md),
             border: Border.all(color: APColor.primary.withOpacity(0.1)),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(APBorderRadius.md),
-            child: Stack(
-              children: <Widget>[
-                Image.memory(
-                  document.thumbnail!,
-                  fit: BoxFit.fitWidth,
-                  width: 100.0,
-                  height: 80.0,
-                  alignment: Alignment.topCenter,
-                ),
-                Positioned(
-                  top: 0.0,
-                  bottom: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: APColor.light,
-                      border: Border(
-                        left: BorderSide(
-                          color: APColor.primary.withOpacity(0.1),
-                        ),
-                      ),
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.55,
-                          child: APTypography.h4(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
-                        ),
-                        const SizedBox(height: Spacing.xs), // Add this line
-                        // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),
-                        APTypography.small(DateFormat('MMMM d, yyyy - h:mm a').format(document.createdAt), color: APColor.dark.withOpacity(0.5)),
-                      ],
-                    ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.memory(
+                document.thumbnail!,
+                width: 100,
+                height: 80,
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter,
+              ),
+              const SizedBox(width: Spacing.sm),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: APTypography.h4(document.title, cutOverflow: true, maxLines: 1, fontWeight: APFontWeight.bold),
                   ),
-                ),
-              ],
-            ),
+                  const SizedBox(height: Spacing.xs), // Add this line
+                  // APTypography.base(document.fileSize, color: APColor.dark.withOpacity(0.5)),
+                  APTypography.small(DateFormat('MMMM d, yyyy - h:mm a').format(document.createdAt), color: APColor.dark.withOpacity(0.5)),
+                ],
+              ),
+            ],
           ),
         ),
       );
